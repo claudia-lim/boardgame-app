@@ -3,5 +3,7 @@
     @csrf
     <label for="input-gamename">Name</label>
     <input id="input-gamename" name="name" type="text">
+    <label for="imageurl">Image URL:</label>
+    <input id="imageurl" name="imageurl" type="text">
     <button type="submit">Add</button>
 </form>

@@ -13,7 +13,7 @@ Route::post('/boardgames/store', [BoardgameController::class, 'store'])->name('b
 Route::get('/boardgames/{id}', [BoardgameController::class, 'show'])->name('boardgames.show');
 Route::get('boardgames/{id}/edit', [BoardgameController::class, 'edit'])->name('boardgames.edit');
 
-
+//From Laravel Breeze:
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

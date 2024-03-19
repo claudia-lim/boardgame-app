@@ -9,6 +9,6 @@ class Boardgame extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'id'
+        'name', 'imageurl'
     ];
 }

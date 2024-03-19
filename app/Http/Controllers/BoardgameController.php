@@ -32,7 +32,8 @@ class BoardgameController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => ['required', 'string']
+            'name' => ['required', 'string'],
+            'imageurl' => ['string']
         ]);
         $newGame = Boardgame::create($data);
         return to_route('boardgames.index');
