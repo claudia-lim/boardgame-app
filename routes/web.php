@@ -3,9 +3,13 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\BoardgameController;
 
 Route::get('/', [HomepageController::class, 'homepage']);
 
+Route::get('/boardgames', [BoardgameController::class, 'index']);
+
+Route::get('/boardgames/{id}', [BoardgameController::class, 'show']);
 
 
 Route::get('/dashboard', function () {
