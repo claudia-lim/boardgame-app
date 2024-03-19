@@ -1,7 +1,10 @@
-<h1>Display all boardgames</h1>
 
+    <h1>Display all boardgames</h1>
 <div>
     <p>Boardgame Info here</p>
+    <div>
+        <a href="{{ route('boardgames.create') }}"><button>Add New Game</button></a>
+    </div>
 
     @foreach($boardgames as $boardgame)
         <div>
@@ -10,5 +13,5 @@
             <a href="{{ route('boardgames.edit', $boardgame) }}"><button>Edit</button></a>
         </div>
     @endforeach
-
 </div>
+
