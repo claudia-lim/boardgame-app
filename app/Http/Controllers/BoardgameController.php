@@ -13,15 +13,17 @@ class BoardgameController extends Controller
      */
     public function index() :View
     {
-        return view('boardgames.index');
+        $boardgames = Boardgame::query()->get();
+//        dd($boardgames);
+        return view('boardgames.index', ['boardgames' => $boardgames]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create():View
     {
-        //
+        return view('boardgames.create');
     }
 
     /**
@@ -29,15 +31,20 @@ class BoardgameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string']
+        ]);
+        $newGame = Boardgame::create($data);
+        return to_route('boardgames.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Boardgame $boardgame):View
+    public function show(string $id):View
     {
-        return view('boardgames.show', ['boardgame' => $boardgame]);
+        $game = Boardgame::find($id);
+        return view('boardgames.show', ['game' => $game]);
     }
 
     /**

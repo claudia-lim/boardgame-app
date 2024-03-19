@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Boardgame extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name', 'id'
+    ];
 }
