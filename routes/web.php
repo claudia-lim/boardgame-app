@@ -7,11 +7,11 @@ use App\Http\Controllers\BoardgameController;
 
 Route::get('/', [HomepageController::class, 'homepage'])->name('homepage');
 
-Route::get('/boardgames', [BoardgameController::class, 'index'])->name('boardgames.index');
-Route::get('/boardgames/create', [BoardgameController::class, 'create'])->name('boardgames.create');
-Route::post('/boardgames/store', [BoardgameController::class, 'store'])->name('boardgames.store');
-Route::get('/boardgames/{id}', [BoardgameController::class, 'show'])->name('boardgames.show');
-Route::get('boardgames/{id}/edit', [BoardgameController::class, 'edit'])->name('boardgames.edit');
+Route::get('/boardgames', [BoardgameController::class, 'index'])->middleware(['auth', 'verified'])->name('boardgames.index');
+Route::get('/boardgames/create', [BoardgameController::class, 'create'])->middleware(['auth', 'verified'])->name('boardgames.create');
+Route::post('/boardgames/store', [BoardgameController::class, 'store'])->middleware(['auth', 'verified'])->name('boardgames.store');
+Route::get('/boardgames/{id}', [BoardgameController::class, 'show'])->middleware(['auth', 'verified'])->name('boardgames.show');
+Route::get('boardgames/{id}/edit', [BoardgameController::class, 'edit'])->middleware(['auth', 'verified'])->name('boardgames.edit');
 
 //From Laravel Breeze:
 Route::get('/dashboard', function () {
