@@ -33,9 +33,10 @@ class BoardgameController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string'],
-            'imageurl' => ['string']
+            'imageurl' => ['string', 'nullable', 'url']
+
         ]);
-        $newGame = Boardgame::create($data);
+        $newGame = Boardgame::create(array_filter($data));
         return to_route('boardgames.index');
     }
 

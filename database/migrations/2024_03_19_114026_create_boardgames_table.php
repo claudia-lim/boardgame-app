@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('imageurl');
+            $table->string('imageurl')->default("https://cdn-icons-png.flaticon.com/512/3430/3430778.png")->nullable();
         });
     }
 
