@@ -12,6 +12,7 @@ Route::get('/boardgames/create', [BoardgameController::class, 'create'])->middle
 Route::post('/boardgames/store', [BoardgameController::class, 'store'])->middleware(['auth', 'verified'])->name('boardgames.store');
 Route::get('/boardgames/{id}', [BoardgameController::class, 'show'])->middleware(['auth', 'verified'])->name('boardgames.show');
 Route::get('boardgames/{id}/edit', [BoardgameController::class, 'edit'])->middleware(['auth', 'verified'])->name('boardgames.edit');
+Route::patch('boardgames/{id}/update', [BoardgameController::class, 'update'])->middleware(['auth', 'verified'])->name('boardgames.update');
 
 //From Laravel Breeze:
 Route::get('/dashboard', function () {

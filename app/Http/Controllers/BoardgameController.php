@@ -52,17 +52,25 @@ class BoardgameController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Boardgame $boardgame)
+    public function edit(string $id)
     {
-        //
+        $game = Boardgame::find($id);
+        return view('boardgames.edit', ['game' => $game]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Boardgame $boardgame)
+    public function update(Request $request, string $id)
     {
-        //
+        $game = Boardgame::find($id);
+        $data = $request->validate([
+            'name' => ['required', 'string'],
+            'imageurl' => ['string', 'nullable', 'url']
+
+        ]);
+        $game->update(array_filter($data));
+        return to_route('boardgames.index');
     }
 
     /**
