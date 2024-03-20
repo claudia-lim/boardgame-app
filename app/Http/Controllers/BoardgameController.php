@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Boardgame;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class BoardgameController extends Controller
@@ -76,8 +77,9 @@ class BoardgameController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Boardgame $boardgame)
+    public function destroy(string $id)
     {
-        //
+        $deleted = DB::table('boardgames')->where('id', '=', $id)->delete();
+        return to_route('boardgames.index');
     }
 }

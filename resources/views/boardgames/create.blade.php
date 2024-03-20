@@ -1,3 +1,4 @@
+@include('layouts.navigation')
 <h1>Add New Boardgame</h1>
 <form method="POST" action="{{ route('boardgames.store') }}">
     @csrf

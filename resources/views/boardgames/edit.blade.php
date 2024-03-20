@@ -1,3 +1,4 @@
+@include('layouts.navigation')
 <div>
     <p>{{ $game->name }} to be edited</p>
     <form method="POST" action="{{ route('boardgames.update', $game) }}">
