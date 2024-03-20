@@ -8,8 +8,13 @@
     @foreach($boardgames as $boardgame)
         <div>
             <h2>{{ $boardgame->name }}</h2>
-            <a href="{{ route('boardgames.show', $boardgame) }}"><button>Show</button></a>
-            <a href="{{ route('boardgames.edit', $boardgame) }}"><button>Edit</button></a>
+            @if($boardgame->imageurl)
+                <img alt="boardgame image" style="width:20vw" src="{{ $boardgame->imageurl}}">
+            @endif
+            <div>
+                <a href="{{ route('boardgames.show', $boardgame) }}"><button>Show</button></a>
+                <a href="{{ route('boardgames.edit', $boardgame) }}"><button>Edit</button></a>
+            </div>
         </div>
     @endforeach
 </div>
