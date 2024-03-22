@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Boardgame;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -14,8 +15,9 @@ class BoardgameController extends Controller
      */
     public function index() :View
     {
-        $boardgames = Boardgame::query()->get();
-//        dd($boardgames);
+        $user = Auth::user();
+//        dd(Boardgame::query()->get());
+        $boardgames = $user->boardgames()->get();
         return view('boardgames.index', ['boardgames' => $boardgames]);
     }
 
