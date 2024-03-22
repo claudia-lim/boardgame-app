@@ -1,14 +1,24 @@
 @include('layouts.navigation')
-<h1>{{ $game->name }}</h1>
-<div>
-    <img style="height:20vw" src='{{ $game->imageurl }}'>
-</div>
-<a href="{{ route('boardgames.edit', $game) }}"><button>Edit</button></a>
+<h1>Game: {{ $boardgame->name }}</h1>
+<h6>In the collection of
+    <ul>
+        @foreach($users as $user)
+            <li>{{ $user->name }}</li>
+        @endforeach
+    </ul>
 
-<form method="POST" action="{{ route('boardgames.destroy', $game) }}">
+</h6>
+<div>
+    <img style="height:20vw" src='{{ $boardgame->imageurl }}'>
+</div>
+<a href="{{ route('boardgames.edit', $boardgame) }}">
+    <button>Edit</button>
+</a>
+
+<form method="POST" action="{{ route('boardgames.destroy', $boardgame) }}">
     @csrf
     @method('delete')
-    <button type="submit">Delete</button>
+    <button type="submit">Remove from Collection</button>
 </form>
 
 

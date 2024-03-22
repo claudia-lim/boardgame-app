@@ -1,11 +1,11 @@
 @include('layouts.navigation')
 <div>
-    <p>{{ $game->name }} to be edited</p>
-    <form method="POST" action="{{ route('boardgames.update', $game) }}">
+    <p>{{ $boardgame->name }} to be edited</p>
+    <form method="POST" action="{{ route('boardgames.update', $boardgame) }}">
         @csrf
         @method('patch')
         <label for="input-gamename">Name</label>
-        <input id="input-gamename" name="name" type="text" value="{{ $game->name }}">
+        <input id="input-gamename" name="name" type="text" value="{{ $boardgame->name }}">
         <label for="imageurl">Image URL:</label>
         <input id="imageurl" name="imageurl" type="text">
         <button type="submit">Update</button>

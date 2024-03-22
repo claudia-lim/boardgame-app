@@ -57,8 +57,9 @@ class BoardgameController extends Controller
      */
     public function show(string $id):View
     {
-        $game = Boardgame::find($id);
-        return view('boardgames.show', ['game' => $game]);
+        $boardgame = Boardgame::find($id);
+        $users = $boardgame->users;
+        return view('boardgames.show', ['boardgame' => $boardgame, 'users'=>$users]);
     }
 
     /**
@@ -66,8 +67,8 @@ class BoardgameController extends Controller
      */
     public function edit(string $id)
     {
-        $game = Boardgame::find($id);
-        return view('boardgames.edit', ['game' => $game]);
+        $boardgame = Boardgame::find($id);
+        return view('boardgames.edit', ['boardgame' => $boardgame]);
     }
 
     /**
@@ -90,7 +91,10 @@ class BoardgameController extends Controller
      */
     public function destroy(string $id)
     {
-        $deleted = DB::table('boardgames')->where('id', '=', $id)->delete();
+        $user = Auth::user();
+        $user->boardgames()->detach($id);
+//        $deleted = DB::table('boardgames')->where('id', '=', $id)->delete();
+
         return to_route('boardgames.index');
     }
 }
