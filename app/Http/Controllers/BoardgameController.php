@@ -34,12 +34,21 @@ class BoardgameController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => ['required', 'string'],
-            'imageurl' => ['string', 'nullable', 'url']
+        $user = Auth::user();
+        if (DB::table('boardgames')->where('name','=', $request->name)->exists()) {
+            $game = DB::table('boardgames')->where('name','=', $request->name)->get();
+//            dd($game);
+            $user->boardgames()->attach($game[0]->id);
 
-        ]);
-        $newGame = Boardgame::create(array_filter($data));
+        } else {
+            $data = $request->validate([
+                'name' => ['required', 'string'],
+                'imageurl' => ['string', 'nullable', 'url']
+            ]);
+
+            $newGame = Boardgame::create(array_filter($data));
+            $user->boardgames()->attach($newGame->id);
+        }
         return to_route('boardgames.index');
     }
 
