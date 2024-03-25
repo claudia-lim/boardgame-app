@@ -35,6 +35,9 @@ class BoardgameController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        $request['name'] = trim($request['name']);
+        $request['name'] = strtolower($request['name']);
+
         if (DB::table('boardgames')->where('name','=', $request->name)->exists()) {
             $game = DB::table('boardgames')->where('name','=', $request->name)->get();
 //            dd($game);
