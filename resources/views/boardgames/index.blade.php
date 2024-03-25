@@ -15,7 +15,7 @@
 
     @foreach($boardgames as $boardgame)
         <div style="background-color: #eeeecf">
-            <h2>{{ $boardgame->name }}</h2>
+            <h2>{{ucwords($boardgame->name) }}</h2>
             <div>
             @if($boardgame->imageurl)
                 <img alt="boardgame image" style="width:20vw" src="{{ $boardgame->imageurl}}">

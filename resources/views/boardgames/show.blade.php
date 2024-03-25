@@ -1,5 +1,5 @@
 @include('layouts.navigation')
-<h1>Game: {{ $boardgame->name }}</h1>
+<h1>Game: {{ ucwords($boardgame->name) }}</h1>
 <h6>In the collection of
     <ul>
         @foreach($users as $user)
