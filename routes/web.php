@@ -15,6 +15,7 @@ Route::get('boardgames/{id}/edit', [BoardgameController::class, 'edit'])->middle
 Route::patch('boardgames/{id}/update', [BoardgameController::class, 'update'])->middleware(['auth', 'verified'])->name('boardgames.update');
 Route::delete('boardgames/{id}/destroy', [BoardgameController::class, 'destroy'])->middleware(['auth', 'verified'])->name('boardgames.destroy');
 
+Route::get('/allgames', [BoardgameController::class, 'allgames'])->middleware(['auth', 'verified'])->name('boardgames.allgames');
 
 //From Laravel Breeze:
 Route::get('/dashboard', function () {

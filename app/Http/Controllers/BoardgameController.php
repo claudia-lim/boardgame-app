@@ -36,6 +36,7 @@ class BoardgameController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request);
         $user = Auth::user();
         $request['name'] = trim($request['name']);
         $request['name'] = strtolower($request['name']);
@@ -114,5 +115,11 @@ class BoardgameController extends Controller
 //        $deleted = DB::table('boardgames')->where('id', '=', $id)->delete();
 
         return to_route('boardgames.index');
+    }
+
+    //display all the boardgames currently in the boardgame table
+    public function allGames() {
+        $allGames = Boardgame::query()->get();
+        return view('boardgames.allgames', ['allGames' => $allGames]);
     }
 }
