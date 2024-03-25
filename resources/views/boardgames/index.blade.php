@@ -21,6 +21,9 @@
                 <img alt="boardgame image" style="width:20vw" src="{{ $boardgame->imageurl}}">
             @endif
                 <div>
+                    {{$boardgame->pivot->favourite ? 'Fave' : 'Not fave'}}
+                </div>
+                <div>
                     <a href="{{ route('boardgames.show', $boardgame) }}"><button>Show</button></a>
                 </div>
                 <div>

@@ -6,6 +6,9 @@
     <input id="input-gamename" name="name" type="text">
     <label for="imageurl">Image URL:</label>
     <input id="imageurl" name="imageurl" type="text" >
+    <label for="favourite">Favourite?</label>
+    <input id="favourite" name="favourite" type="checkbox">
+
     <button type="submit">Add</button>
 </form>
 @if ($errors->any())
