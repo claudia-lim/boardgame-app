@@ -123,10 +123,19 @@ class BoardgameController extends Controller
         return view('boardgames.allgames', ['allGames' => $allGames]);
     }
 
+    //Display favourite games for logged in user
     public function favouriteGames() {
         $currentUser = Auth::user();
         $favouriteGames = $currentUser->boardgames()->wherePivotIn('favourite', [1, 'on'])->get();
         return view('boardgames.favourites', ['favouriteGames' => $favouriteGames]);
-
     }
+
+    //Controller for favourite star button on index page
+    public function updateFave(string $id) {
+        $currentUser = Auth::user();
+        $currentFaveStatus = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot->favourite;
+        $currentUser->boardgames()->updateExistingPivot($id,['favourite' => $currentFaveStatus ? 0 : 1] );
+        return to_route('boardgames.index');
+    }
+
 }

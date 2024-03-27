@@ -1,15 +1,9 @@
-
-{{--@include('layouts.navigation')--}}
-{{--<x-app-layout>--}}
-
 <x-gameapplayout>
 
+    <x-slot name="header">
+        {{ __('Displaying boardgames') }}
+    </x-slot>
 
-{{--    <header>--}}
-        <x-slot name="header">
-            {{ __('Displaying boardgames') }}
-        </x-slot>
-{{--    </header>--}}
 <div>
     <div class="newgame-button-div">
         <a href="{{ route('boardgames.create')}}">
@@ -21,47 +15,34 @@
 
     <div class="index-games-display">
     @foreach($boardgames as $boardgame)
-        <div class="index-game-section">
+        <section class="index-game-section">
             <h2>{{ucwords($boardgame->name) }}</h2>
 
             <div class="index-game-section-images">
                 @if($boardgame->imageurl)
-                    <img class="index-game-image"
-                         alt="boardgame image"
-                         src="{{ $boardgame->imageurl}}">
+                    <img class="index-game-image" alt="boardgame image" src="{{ $boardgame->imageurl}}">
                 @endif
-{{--                    <i class="fa-solid fa-star"></i>--}}
-{{--                    <i class="fa-regular fa-star"></i>--}}
+                <form method="POST" action="{{ route('boardgames.updatefave', $boardgame) }}">
+                    @csrf
+                    @method('patch')
+                    <button type="submit">
+                        <i class="fa-{{$boardgame->pivot->favourite ? 'solid' : 'regular'}} fa-star fave-toggle-button"></i>
+                    </button>
+                </form>
 
-                    <i class="fa-regular fa-star test"></i>
-
-
-                    <i class="fa-{{$boardgame->pivot->favourite ? 'solid' : 'regular'}} fa-star fave-button"
-                       data-fave="{{$boardgame->pivot->favourite ? '1' : '0'}}"></i>
-
-
-{{--                    <img alt="favourite icon"--}}
-{{--                         style="width: 10vw"--}}
-{{--                         src={{$boardgame->pivot->favourite ? 'https://t4.ftcdn.net/jpg/05/40/09/17/360_F_540091788_AvDyNUSbtnKQfNccukuFa3ZlsHFnMYrK.png' : 'https://cdn3.iconfinder.com/data/icons/cosmo-color-education-1/40/rating_lowstar-512.png'}}>--}}
             </div>
 
-                <div class="index-game-section-buttons">
-                    <a href="{{ route('boardgames.show', $boardgame) }}"><button>Show</button></a>
-
-
-                    <a href="{{ route('boardgames.edit', $boardgame) }}"><button>Edit</button></a>
-
-
+            <div class="index-game-section-buttons">
+                <a href="{{ route('boardgames.show', $boardgame) }}"><button>Show</button></a>
+                <a href="{{ route('boardgames.edit', $boardgame) }}"><button>Edit</button></a>
                 <form method="POST" action="{{ route('boardgames.destroy', $boardgame) }}">
                     @csrf
                     @method('delete')
                     <button type="submit">Remove from Collection</button>
                 </form>
-                </div>
-
-        </div>
+            </div>
+        </section>
     @endforeach
     </div>
 </div>
-{{--</x-app-layout>--}}
 </x-gameapplayout>
