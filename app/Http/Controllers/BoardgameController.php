@@ -57,7 +57,7 @@ class BoardgameController extends Controller
 
             if ($request['favourite'])
             {
-                $user->boardgames()->updateExistingPivot($newGame->id, ['favourite' => $request['favourite']]);
+                $user->boardgames()->updateExistingPivot($newGame->id, ['favourite' => 1]);
             }
 
         }
@@ -121,5 +121,12 @@ class BoardgameController extends Controller
     public function allGames() {
         $allGames = Boardgame::query()->get();
         return view('boardgames.allgames', ['allGames' => $allGames]);
+    }
+
+    public function favouriteGames() {
+        $currentUser = Auth::user();
+        $favouriteGames = $currentUser->boardgames()->wherePivotIn('favourite', [1, 'on'])->get();
+        return view('boardgames.favourites', ['favouriteGames' => $favouriteGames]);
+
     }
 }
