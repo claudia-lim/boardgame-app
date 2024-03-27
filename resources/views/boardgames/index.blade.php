@@ -18,21 +18,27 @@
     </div>
 
     <h2>User: {{ Auth::user()->name }}</h2>
-    <div class="index-games-display">
 
+    <div class="index-games-display">
     @foreach($boardgames as $boardgame)
         <div class="index-game-section">
             <h2>{{ucwords($boardgame->name) }}</h2>
 
             <div class="index-game-section-images">
                 @if($boardgame->imageurl)
-                    <img alt="boardgame image"
-                         style="width:20vw"
+                    <img class="index-game-image"
+                         alt="boardgame image"
                          src="{{ $boardgame->imageurl}}">
                 @endif
 {{--                    <i class="fa-solid fa-star"></i>--}}
 {{--                    <i class="fa-regular fa-star"></i>--}}
-                    <i class="fa-{{$boardgame->pivot->favourite ? 'solid' : 'regular'}} fa-star"></i>
+
+                    <i class="fa-regular fa-star test"></i>
+
+
+                    <i class="fa-{{$boardgame->pivot->favourite ? 'solid' : 'regular'}} fa-star fave-button"
+                       data-fave="{{$boardgame->pivot->favourite ? '1' : '0'}}"></i>
+
 
 {{--                    <img alt="favourite icon"--}}
 {{--                         style="width: 10vw"--}}

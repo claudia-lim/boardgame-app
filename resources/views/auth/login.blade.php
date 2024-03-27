@@ -1,6 +1,10 @@
-<x-guest-layout>
+<x-gameapp-guestlayout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
+
+    <x-slot name="header">
+        {{ __('Log in') }}
+    </x-slot>
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
@@ -44,4 +48,12 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+    <a
+        href="{{ route('register') }}"
+    >
+    <button>
+
+        Register
+    </button>
+    </a>
+</x-gameapp-guestlayout>

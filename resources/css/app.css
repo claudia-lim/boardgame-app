@@ -69,6 +69,10 @@ button:hover {
     padding: 0.5rem;
 }
 
+.index-game-image {
+    width: 20vw;
+}
+
 .index-game-section-buttons {
     display:flex;
     justify-content: space-evenly;
