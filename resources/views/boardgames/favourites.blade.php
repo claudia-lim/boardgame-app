@@ -7,6 +7,9 @@
 {{--    {{ dd($favouriteGames) }}--}}
 
     <div class="index-games-display">
+        @if($favouriteGames->isEmpty())
+            <h2>No games added to favourites yet!</h2>
+        @endif
         @foreach($favouriteGames as $boardgame)
         <div class="index-game-section">
             <h2>{{ucwords($boardgame->name) }}</h2>
