@@ -16,19 +16,21 @@
     <div class="index-games-display">
     @foreach($boardgames as $boardgame)
         <section class="index-game-section">
-            <h2>{{ucwords($boardgame->name) }}</h2>
+            <h2>{{$boardgame->pivot->custom_name ? ucwords($boardgame->pivot->custom_name) : ucwords($boardgame->name) }}</h2>
 
             <div class="index-game-section-images">
                 @if($boardgame->imageurl)
                     <img class="index-game-image" alt="boardgame image" src="{{ $boardgame->imageurl}}">
                 @endif
-                <form method="POST" action="{{ route('boardgames.updatefave', $boardgame) }}">
-                    @csrf
-                    @method('patch')
-                    <button type="submit">
-                        <i class="fa-{{$boardgame->pivot->favourite ? 'solid' : 'regular'}} fa-star fave-toggle-button"></i>
-                    </button>
-                </form>
+                <div class="fave-icon">
+                    <form method="POST" action="{{ route('boardgames.updatefave', $boardgame) }}">
+                        @csrf
+                        @method('patch')
+                        <button class="fave-button" type="submit">
+                            <i class="fa-{{$boardgame->pivot->favourite ? 'solid' : 'regular'}} fa-star fave-toggle-icon"></i>
+                        </button>
+                    </form>
+                </div>
 
             </div>
 

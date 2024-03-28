@@ -54,6 +54,7 @@ class BoardgameController extends Controller
 
             $newGame = Boardgame::create(array_filter($data));
             $user->boardgames()->attach($newGame->id);
+            $user->boardgames()->updateExistingPivot($newGame->id, ['comments' => $request['comments'] ? $request['comments'] : ""]);
 
             if ($request['favourite'])
             {
@@ -94,15 +95,16 @@ class BoardgameController extends Controller
     {
         $game = Boardgame::find($id);
         $data = $request->validate([
-            'name' => ['required', 'string'],
             'imageurl' => ['string', 'nullable', 'url']
         ]);
         $game->update(array_filter($data));
 
         $currentUser = Auth::user();
+        $currentUser->boardgames()->updateExistingPivot($id, ['custom_name' => $request['name']]);
         $currentUser->boardgames()->updateExistingPivot($id, ['favourite' => $request['favourite'] ? $request['favourite'] : 0]);
+        $currentUser->boardgames()->updateExistingPivot($id, ['comments' => $request['comments'] ? : ""]);
 
-        return to_route('boardgames.index');
+        return to_route('boardgames.show', $id);
     }
 
     /**
@@ -135,7 +137,8 @@ class BoardgameController extends Controller
         $currentUser = Auth::user();
         $currentFaveStatus = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot->favourite;
         $currentUser->boardgames()->updateExistingPivot($id,['favourite' => $currentFaveStatus ? 0 : 1] );
-        return to_route('boardgames.index');
+//        return to_route('boardgames.index');
+        return back();
     }
 
 }

@@ -38,6 +38,7 @@ main {
     border: solid 3px var(--header-bg-color);
     padding: 1rem;
 }
+
 button {
     border: 0;
     padding: 0.25rem;
@@ -90,6 +91,24 @@ button:hover {
 
 .fa-star {
     font-size: 2rem;
+}
+
+.fave-button {
+    background-color: transparent;
+}
+
+.fave-button:hover {
+    background-color:transparent;
+}
+
+.fa-star:hover {
+    font-size: 2.5rem;
+}
+
+.fave-icon {
+    width: 3rem;
+    height: 3rem;
+    padding: 1rem;
 }
 
 .index-game-section-images {

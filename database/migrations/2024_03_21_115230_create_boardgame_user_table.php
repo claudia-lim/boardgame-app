@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('boardgame_id')->constrained('boardgames');
             $table->timestamps();
             $table->boolean('favourite')->default(0);
+            $table->string('comments')->default("");
+            $table->string('custom_name')->default("");
         });
     }
 

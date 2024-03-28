@@ -13,6 +13,8 @@
             <input id="imageurl" name="imageurl" type="text">
             <label for="favourite">Favourite?</label>
             <input id="favourite" name="favourite" type="checkbox" {{ $gameUserInfo->favourite ? 'checked="checked"' : "none" }} >
+            <label for="comments">Comments</label>
+            <textarea id="comments" name="comments">{{ $gameUserInfo->comments }}</textarea>
             <button type="submit">Update</button>
 
         </form>

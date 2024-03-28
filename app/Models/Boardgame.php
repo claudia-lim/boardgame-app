@@ -18,7 +18,7 @@ class Boardgame extends Model
     {
         return $this->belongsToMany(User::class)
             ->using(BoardgameUser::class)
-            ->withPivot('favourite')
+            ->withPivot('favourite', 'comments', 'custom_name')
             ->withTimestamps();
     }
 }

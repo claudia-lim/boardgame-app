@@ -12,6 +12,8 @@
         <input id="imageurl" name="imageurl" type="text" >
         <label for="favourite">Favourite?</label>
         <input id="favourite" name="favourite" type="checkbox">
+        <label for="comments">Comments</label>
+        <textarea id="comments" name="comments"></textarea>
 
         <button type="submit">Add</button>
     </form>

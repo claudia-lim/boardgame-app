@@ -4,15 +4,13 @@
         {{ __('Favourite boardgames') }}
     </x-slot>
 
-{{--    {{ dd($favouriteGames) }}--}}
-
     <div class="index-games-display">
         @if($favouriteGames->isEmpty())
             <h2>No games added to favourites yet!</h2>
         @endif
         @foreach($favouriteGames as $boardgame)
         <div class="index-game-section">
-            <h2>{{ucwords($boardgame->name) }}</h2>
+            <h2>{{$boardgame->pivot->custom_name ? ucwords($boardgame->pivot->custom_name) : ucwords($boardgame->name) }}</h2>
 
             <div class="index-game-section-images">
                 @if($boardgame->imageurl)
