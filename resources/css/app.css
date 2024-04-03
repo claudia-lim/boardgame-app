@@ -11,6 +11,7 @@
 :root {
     --layout-body-bg-color: #f7eae0;
     --layout-accent-color: #dc8c50;
+    --layout-body-font-color: #342d06;
 
     --header-bg-color: #c94927;
     --header-text-color: #ede0d7;
@@ -33,6 +34,7 @@ header {
 .gameapplayout-body {
     background-color: var(--layout-body-bg-color);
     font-family: "Lora", serif;
+    color: var(--layout-body-font-color);
 }
 
 main {
@@ -57,6 +59,18 @@ button:hover {
 
 a {
     text-decoration: none;
+}
+
+input {
+    font-family: "Lora", serif;
+}
+
+form :focus-visible {
+    outline-color: var(--header-bg-color);
+}
+
+input[type='checkbox'] {
+    accent-color: var(--header-bg-color);
 }
 
 /*index view specific*/
@@ -147,7 +161,7 @@ a {
 
 /*add new game*/
 
-.add-game-form {
+.add-game-form, .edit-game-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
