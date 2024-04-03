@@ -20,6 +20,11 @@
 {{--                    </x-nav-link>--}}
                     <a href="{{ route('boardgames.favourites') }}">Favourites</a>
                 </div>
+
+        <div>
+            <a href="{{ route('boardgames.create')}}">
+                Add New Game</a>
+        </div>
     </div>
 
         <!-- Responsive Settings Options -->

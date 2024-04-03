@@ -1,7 +1,7 @@
 <x-gameapplayout>
 
     <x-slot name="header">
-        {{ __('Displaying boardgames') }}
+        {{ __('Your Board Game Collection') }}
     </x-slot>
 
 <div>

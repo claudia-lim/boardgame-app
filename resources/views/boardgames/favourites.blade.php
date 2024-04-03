@@ -19,8 +19,15 @@
                      src="{{ $boardgame->imageurl}}">
                 @endif
 
-                <i class="fa-{{$boardgame->pivot->favourite ? 'solid' : 'regular'}} fa-star fave-button"
-                   data-fave="{{$boardgame->pivot->favourite ? '1' : '0'}}"></i>
+                    <div class="fave-icon">
+                        <form method="POST" action="{{ route('boardgames.updatefave', $boardgame) }}">
+                            @csrf
+                            @method('patch')
+                            <button class="fave-button" type="submit">
+                                <i class="fa-{{$boardgame->pivot->favourite ? 'solid' : 'regular'}} fa-star fave-toggle-icon"></i>
+                            </button>
+                        </form>
+                    </div>
 
             </div>
 

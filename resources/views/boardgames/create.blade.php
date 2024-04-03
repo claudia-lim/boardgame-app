@@ -2,9 +2,10 @@
 <x-gameapplayout>
     <x-slot name="header">
 
-        {{ __('Add New Boardgame') }}
+        {{ __('Add a Game to Collection') }}
     </x-slot>
     <div >
+
         <form method="POST" action="{{ route('boardgames.store') }}" class="add-game-form">
             @csrf
             <div class="gamename-input-div">
@@ -20,7 +21,7 @@
                 <input id="favourite" name="favourite" type="checkbox">
             </div>
             <div class="comments-input-div">
-                <label for="comments">Comments</label>
+                <label for="comments">Add a comment:</label>
                 <textarea id="comments" name="comments"></textarea>
             </div>
             <div>

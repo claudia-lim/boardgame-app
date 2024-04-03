@@ -22,7 +22,8 @@
 
 header {
     background-color: var(--header-bg-color);
-    padding: 1rem;
+    padding: 2rem;
+    font-size: 1.5rem;
     color: var(--header-text-color);
     letter-spacing: 0.5rem;
     margin: 1rem auto;
@@ -55,6 +56,7 @@ button {
 button:hover {
     color: var(--button-color-1);
     background-color: var(--button-color-2);
+    cursor: pointer;
 }
 
 a {
@@ -78,6 +80,11 @@ input[type='checkbox'] {
 .newgame-button-div {
     display: flex;
     justify-content: center;
+}
+
+.newgame-button {
+    padding: 1.5rem;
+    font-size: 1.5rem;
 }
 
 .index-games-display {
