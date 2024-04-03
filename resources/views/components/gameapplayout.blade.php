@@ -16,7 +16,7 @@
     </head>
 
     <body class="gameapplayout-body">
-        <div class="">
+        <div>
             @include('layouts.navigation')
 
             <!-- Page Heading -->

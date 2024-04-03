@@ -27,6 +27,7 @@ header {
     margin: 1rem auto;
     width: fit-content;
     font-family: "Bebas Neue", sans-serif;
+    text-align: center;
 }
 
 .gameapplayout-body {
@@ -35,7 +36,7 @@ header {
 }
 
 main {
-    border: solid 3px var(--header-bg-color);
+    /*border: solid 3px var(--header-bg-color);*/
     padding: 1rem;
 }
 
@@ -46,11 +47,16 @@ button {
     color: var(--button-color-2);
     background-color: var(--button-color-1);
     font-size: 1.5rem;
+    box-shadow: 3px 3px 3px rgba(56, 53, 36, 0.46);
 }
 
 button:hover {
     color: var(--button-color-1);
     background-color: var(--button-color-2);
+}
+
+a {
+    text-decoration: none;
 }
 
 /*index view specific*/
@@ -71,7 +77,7 @@ button:hover {
 }
 
 .index-game-image {
-    width: 20vw;
+    width: 30vw;
 }
 
 .index-game-section-buttons {
@@ -81,7 +87,7 @@ button:hover {
 
 .fa-solid {
     color: var(--header-bg-color);
-    text-shadow: #d3874e 3px 3px;
+    text-shadow: #d3874e 3px 3px 2px;
 }
 
 .fa-regular {
@@ -95,6 +101,7 @@ button:hover {
 
 .fave-button {
     background-color: transparent;
+    box-shadow: none;
 }
 
 .fave-button:hover {
@@ -117,4 +124,122 @@ button:hover {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .index-games-display {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .index-game-section-buttons {
+        display:flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .index-game-image {
+        width: 70vw;
+    }
+}
+
+/*add new game*/
+
+.add-game-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    width: 75vw;
+    /*align-self: center;*/
+    margin: 0 auto;
+}
+
+.gamename-input-div, .image-url-input-div {
+    display: flex;
+    /*flex-wrap: wrap;*/
+    justify-content: center;
+}
+
+label {
+    width: 15vw;
+}
+
+input[type='text'] {
+    width: 100%;
+}
+
+.comments-input-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#comments {
+    min-height: 20vh;
+}
+
+/*show individual game*/
+.show-game {
+    max-width: 75vw;
+    margin: 1rem auto;
+    border: solid 2px white;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.25rem;
+}
+
+
+.comments {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    gap: 0;
+    height: fit-content;
+    text-align: center;
+}
+
+.comments h4 {
+    padding: 0;
+    margin: 0;
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none;
+}
+/*navigation bar*/
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigation {
+    font-family: "Bebas Neue";
+    font-size: 1.5rem;
+}
+
+.navigation a {
+    color: var(--button-color-1)
+}
+
+.navigation {
+    color: var(--header-bg-color);
+}
+
+.navigation a:hover {
+    background-color: var(--button-color-2)
+}
+
+/*profile page*/
+
+.profile-page h2 {
+    color: var(--header-bg-color);
 }

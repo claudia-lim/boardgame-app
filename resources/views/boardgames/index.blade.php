@@ -11,7 +11,7 @@
         </a>
     </div>
 
-    <h2>User: {{ Auth::user()->name }}</h2>
+{{--    <h2>User: {{ Auth::user()->name }}</h2>--}}
 
     <div class="index-games-display">
     @foreach($boardgames as $boardgame)

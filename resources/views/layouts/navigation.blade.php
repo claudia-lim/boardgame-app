@@ -1,26 +1,25 @@
-<nav >
+<nav class="navigation">
     <!-- Primary Navigation Menu -->
-    <div>
-        <div>
-            <div>
+    <div class="main-links">
                 <!-- Navigation Links -->
                 <div>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+{{--                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">--}}
+{{--                        {{ __('Dashboard') }}--}}
+{{--                    </x-nav-link>--}}
+                    <a href="{{ route('dashboard') }}">Dashboard</a>
                 </div>
                 <div>
-                    <x-nav-link :href="route('boardgames.index')" >
-                        {{ __('Boardgames') }}
-                    </x-nav-link>
+{{--                    <x-nav-link :href="route('boardgames.index')" >--}}
+{{--                        {{ __('Boardgames') }}--}}
+{{--                    </x-nav-link>--}}
+                    <a href="{{ route('boardgames.index') }}">Your Collection</a>
                 </div>
                 <div>
-                    <x-nav-link :href="route('boardgames.favourites')" >
-                        {{ __('Favourites') }}
-                    </x-nav-link>
+{{--                    <x-nav-link :href="route('boardgames.favourites')" >--}}
+{{--                        {{ __('Favourites') }}--}}
+{{--                    </x-nav-link>--}}
+                    <a href="{{ route('boardgames.favourites') }}">Favourites</a>
                 </div>
-            </div>
-        </div>
     </div>
 
         <!-- Responsive Settings Options -->
@@ -30,10 +29,11 @@
                 <div>{{ Auth::user()->email }}</div>
             </div>
 
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+            <div class="">
+{{--                <x-responsive-nav-link :href="route('profile.edit')">--}}
+{{--                    {{ __('Profile') }}--}}
+{{--                </x-responsive-nav-link>--}}
+                <a href="{{ route('profile.edit') }}">Profile</a>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
