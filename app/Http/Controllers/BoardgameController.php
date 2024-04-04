@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Boardgame;
 use App\Models\BoardgameUser;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +55,7 @@ class BoardgameController extends Controller
 
             $newGame = Boardgame::create(array_filter($data));
             $user->boardgames()->attach($newGame->id);
-            $user->boardgames()->updateExistingPivot($newGame->id, ['comments' => $request['comments'] ? $request['comments'] : ""]);
+//            $user->boardgames()->updateExistingPivot($newGame->id, ['comments' => $request['comments'] ? $request['comments'] : ""]);
 
             if ($request['favourite'])
             {
@@ -74,7 +75,9 @@ class BoardgameController extends Controller
         $users = $boardgame->users;
         $currentUser = Auth::user();
         $gameUserInfo = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
-        return view('boardgames.show', ['boardgame' => $boardgame, 'gameUserInfo' => $gameUserInfo, 'users'=>$users]);
+        $comments = Comment::where('boardgame_id', $id)->where('public', 1)->orderByDesc('created_at')->get();
+//        dd($comments);
+        return view('boardgames.show', ['boardgame' => $boardgame, 'gameUserInfo' => $gameUserInfo, 'users'=>$users, 'comments'=>$comments]);
     }
 
     /**
@@ -102,7 +105,7 @@ class BoardgameController extends Controller
         $currentUser = Auth::user();
         $currentUser->boardgames()->updateExistingPivot($id, ['custom_name' => $request['name']]);
         $currentUser->boardgames()->updateExistingPivot($id, ['favourite' => $request['favourite'] ? $request['favourite'] : 0]);
-        $currentUser->boardgames()->updateExistingPivot($id, ['comments' => $request['comments'] ? : ""]);
+//        $currentUser->boardgames()->updateExistingPivot($id, ['comments' => $request['comments'] ? : ""]);
 
         return to_route('boardgames.show', $id);
     }

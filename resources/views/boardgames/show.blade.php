@@ -27,17 +27,27 @@
             </button>
         </form>
     </div>
-    <div>
-        <div class="{{ $gameUserInfo->comments ? '' : 'hidden' }} comments">
-            <h4>Comments</h4>
-            <p>
-                {{ $gameUserInfo->comments }}
-            </p>
-
+        <div>
+            <div class="{{ $comments ? '' : 'hidden' }} comments">
+                <h4>Comments</h4>
+                @foreach($comments as $comment)
+                <div>
+                    <p> {{ $comment->comment }} </p>
+                    <p>Comment posted at: {{ $comment->created_at }}</p>
+{{--                    <p>user id = {{ $comment->user_id }}</p>--}}
+                    <p>By User: {{ $comment->user($comment->user_id)->name }}</p>
+                </div>
+                @endforeach
+            </div>
         </div>
-    </div>
+
+
     <a href="{{ route('boardgames.edit', $boardgame) }}">
         <button>Edit</button>
+    </a>
+
+    <a href="{{ route('comments.create', $boardgame) }}">
+        <button>Add comment</button>
     </a>
 
     <form method="POST" action="{{ route('boardgames.destroy', $boardgame) }}">

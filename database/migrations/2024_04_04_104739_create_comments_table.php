@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boardgame_user', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('boardgame_id')->constrained('boardgames');
             $table->timestamps();
-            $table->boolean('favourite')->default(0);
-//            $table->string('comments')->default("");
-            $table->string('custom_name')->default("");
+            $table->string('comment');
+            $table->foreignId('boardgame_id')->constrained('boardgames');
+            $table->foreignId('user_id')->constrained('users');
+            $table->boolean('public')->default(1);
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boardgame_user');
+        Schema::dropIfExists('comments');
     }
 };

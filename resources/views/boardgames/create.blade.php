@@ -20,10 +20,10 @@
                 <label for="favourite">Favourite?</label>
                 <input id="favourite" name="favourite" type="checkbox">
             </div>
-            <div class="comments-input-div">
-                <label for="comments">Add a comment:</label>
-                <textarea id="comments" name="comments"></textarea>
-            </div>
+{{--            <div class="comments-input-div">--}}
+{{--                <label for="comments">Add a comment:</label>--}}
+{{--                <textarea id="comments" name="comments"></textarea>--}}
+{{--            </div>--}}
             <div>
                 <button type="submit">Add</button>
             </div>

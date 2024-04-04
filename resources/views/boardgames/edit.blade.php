@@ -20,10 +20,10 @@
                 <label for="favourite">Favourite?</label>
                 <input id="favourite" name="favourite" type="checkbox" {{ $gameUserInfo->favourite ? 'checked="checked"' : "none" }} >
             </div>
-            <div class="comments-input-div">
-                <label for="comments">Comments</label>
-                <textarea id="comments" name="comments">{{ $gameUserInfo->comments }}</textarea>
-            </div>
+{{--            <div class="comments-input-div">--}}
+{{--                <label for="comments">Comments</label>--}}
+{{--                <textarea id="comments" name="comments">{{ $gameUserInfo->comments }}</textarea>--}}
+{{--            </div>--}}
             <div>
                 <button type="submit">Update</button>
             </div>
