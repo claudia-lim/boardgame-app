@@ -77,7 +77,6 @@ class BoardgameController extends Controller
         $gameUserInfo = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
         $publicComments = Comment::where('boardgame_id', $id)->where('public', 1)->orderByDesc('created_at')->get();
         $userComments = Comment::where('boardgame_id', $id)->where('user_id', $currentUser->id)->orderByDesc('created_at')->get();
-//        dd($comments);
         return view('boardgames.show',
             [
                 'boardgame' => $boardgame,

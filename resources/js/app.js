@@ -20,6 +20,11 @@ const publicComments = document.querySelector('.public-comments');
 const userComments = document.querySelector('.user-comments');
 
 toggleCommentsButton.addEventListener("click", () => {
+    if (toggleCommentsButton.innerHTML === "Display Public Comments") {
+        toggleCommentsButton.innerHTML = "Display Your Comments"
+    } else {
+        toggleCommentsButton.innerHTML = "Display Public Comments"
+    }
     publicComments.classList.toggle("hidden");
     userComments.classList.toggle("hidden");
 })

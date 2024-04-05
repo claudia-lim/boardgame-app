@@ -28,15 +28,17 @@
         </form>
     </div>
         <section class="comments">
-            <button class="toggle-comments">Your comments/Public commments</button>
+            <button class="toggle-comments">Display Public Comments</button>
             <div class="public-comments hidden">
-                <h4>Public Comments</h4>
+                <h4>All Public Comments</h4>
+                @if ($publicComments->isEmpty())
+                    <p>No comments yet</p>
+                @endif
                 @foreach($publicComments as $publicComment)
                 <div class="comment public-comment {{ $publicComment->public ? 'public' : 'private' }}">
-                    <h5> {{ $publicComment->comment }} </h5>
-                    <p>Comment posted at: {{ $publicComment->created_at }}</p>
-{{--                    <p>user id = {{ $comment->user_id }}</p>--}}
-                    <p>By User: {{ $publicComment->user($publicComment->user_id)->name }}</p>
+                    <p> {{ $publicComment->comment }} </p>
+                    <h6>Comment posted at: {{ $publicComment->created_at->format("H:i d M Y") }}</h6>
+                    <h6>By User: {{ $publicComment->user($publicComment->user_id)->name }}</h6>
                     <form method="POST" action="{{route('comments.delete', $publicComment->id)}}">
                         @csrf
                         @method('delete')
@@ -46,15 +48,18 @@
                 @endforeach
 {{--            {{ $publicComments->links() }}--}}
             </div>
+
             <div class="user-comments">
-                <h4>User Comments</h4>
+                <h4>Your Comments</h4>
+                @if ($userComments->isEmpty())
+                    <p>No comments yet</p>
+                @endif
                 @foreach($userComments as $userComment)
                     <div class="comment user-comment {{ $userComment->public ? 'public' : 'private' }}">
-                        <h5> {{ $userComment->comment }} </h5>
-                        <p>Comment posted at: {{ $userComment->created_at }}</p>
-                        {{--                    <p>user id = {{ $comment->user_id }}</p>--}}
-                        <p>By User: {{ $userComment->user($userComment->user_id)->name }}</p>
-                        <p> {{ $userComment->public ? 'Public post' : 'Private post' }}</p>
+                        <p> {{ $userComment->comment }} </p>
+                        <h6>Comment posted at: {{ $userComment->created_at->format("H:i d M Y") }}</h6>
+                        <h6>By User: {{ $userComment->user($userComment->user_id)->name }}</h6>
+                        <h6> {{ $userComment->public ? 'Public post' : 'Private post' }}</h6>
                         <form method="POST" action="{{route('comments.delete', $userComment->id)}}">
                             @csrf
                             @method('delete')
