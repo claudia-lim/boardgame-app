@@ -22,6 +22,8 @@ Route::patch('/boardgames/{id}/updatefave', [BoardgameController::class, 'update
 
 Route::get('/addcomment/{id}', [CommentController::class, 'create'])->middleware(['auth', 'verified'])->name('comments.create');
 Route::post('/addcomment/{id}/add', [CommentController::class, 'addComment'])->middleware(['auth', 'verified'])->name('comments.add');
+Route::delete('/addcomment/{id}/delete', [CommentController::class, 'deleteComment'])->middleware(['auth', 'verified'])->name('comments.delete');
+
 
 //From Laravel Breeze:
 //Route::get('/dashboard', function () {

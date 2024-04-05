@@ -31,4 +31,9 @@ class CommentController extends Controller
 //        dd($newComment);
         return to_route('boardgames.show', $id);
     }
+
+    public function deleteComment($commentId) {
+        $deleted = Comment::where('id', $commentId)->delete();
+        return back();
+    }
 }
