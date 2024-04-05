@@ -75,9 +75,17 @@ class BoardgameController extends Controller
         $users = $boardgame->users;
         $currentUser = Auth::user();
         $gameUserInfo = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
-        $comments = Comment::where('boardgame_id', $id)->where('public', 1)->orderByDesc('created_at')->get();
+        $publicComments = Comment::where('boardgame_id', $id)->where('public', 1)->orderByDesc('created_at')->get();
+        $userComments = Comment::where('boardgame_id', $id)->where('user_id', $currentUser->id)->orderByDesc('created_at')->get();
 //        dd($comments);
-        return view('boardgames.show', ['boardgame' => $boardgame, 'gameUserInfo' => $gameUserInfo, 'users'=>$users, 'comments'=>$comments]);
+        return view('boardgames.show',
+            [
+                'boardgame' => $boardgame,
+                'gameUserInfo' => $gameUserInfo,
+                'users'=>$users,
+                'publicComments'=>$publicComments,
+                'userComments'=>$userComments
+            ]);
     }
 
     /**

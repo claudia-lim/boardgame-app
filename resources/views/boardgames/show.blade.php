@@ -27,20 +27,45 @@
             </button>
         </form>
     </div>
-        <div>
-            <div class="{{ $comments ? '' : 'hidden' }} comments">
-                <h4>Comments</h4>
-                @foreach($comments as $comment)
-                <div>
-                    <p> {{ $comment->comment }} </p>
-                    <p>Comment posted at: {{ $comment->created_at }}</p>
+        <section class="comments">
+            <button class="toggle-comments">Your comments/Public commments</button>
+            <div class="public-comments hidden">
+                <h4>Public Comments</h4>
+                @foreach($publicComments as $publicComment)
+                <div class="comment public-comment {{ $publicComment->public ? 'public' : 'private' }}">
+                    <h5> {{ $publicComment->comment }} </h5>
+                    <p>Comment posted at: {{ $publicComment->created_at }}</p>
 {{--                    <p>user id = {{ $comment->user_id }}</p>--}}
-                    <p>By User: {{ $comment->user($comment->user_id)->name }}</p>
+                    <p>By User: {{ $publicComment->user($publicComment->user_id)->name }}</p>
+                    <form method="POST" action="{{route('comments.delete', $publicComment->id)}}">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="{{ $publicComment->user_id == Auth::user()->id ? '' : 'hidden'}}">Delete</button>
+                    </form>
                 </div>
                 @endforeach
+{{--            {{ $publicComments->links() }}--}}
             </div>
-        </div>
+            <div class="user-comments">
+                <h4>User Comments</h4>
+                @foreach($userComments as $userComment)
+                    <div class="comment user-comment {{ $userComment->public ? 'public' : 'private' }}">
+                        <h5> {{ $userComment->comment }} </h5>
+                        <p>Comment posted at: {{ $userComment->created_at }}</p>
+                        {{--                    <p>user id = {{ $comment->user_id }}</p>--}}
+                        <p>By User: {{ $userComment->user($userComment->user_id)->name }}</p>
+                        <p> {{ $userComment->public ? 'Public post' : 'Private post' }}</p>
+                        <form method="POST" action="{{route('comments.delete', $userComment->id)}}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="{{ $userComment->user_id == Auth::user()->id ? '' : 'hidden'}}">Delete</button>
+                        </form>
+                    </div>
 
+                @endforeach
+{{--            {{ $userComments->links() }}--}}
+            </div>
+        </section>
 
     <a href="{{ route('boardgames.edit', $boardgame) }}">
         <button>Edit</button>

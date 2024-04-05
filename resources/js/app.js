@@ -12,7 +12,14 @@ faveButtons.forEach((faveButton) => {
         faveButton.classList.toggle("fa-regular");
         faveButton.classList.toggle("fa-solid");
     })
-
 }
 );
 
+const toggleCommentsButton = document.querySelector(".toggle-comments");
+const publicComments = document.querySelector('.public-comments');
+const userComments = document.querySelector('.user-comments');
+
+toggleCommentsButton.addEventListener("click", () => {
+    publicComments.classList.toggle("hidden");
+    userComments.classList.toggle("hidden");
+})

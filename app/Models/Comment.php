@@ -15,6 +15,5 @@ class Comment extends Model
 
     public function user($id) {
         return User::where('id', $id)->get()->first();
-
     }
 }

@@ -1,10 +1,7 @@
 
-<div>
-
-    Add comment page
-</div>
-
-{{$boardgame_id}}
+<h2>
+    Add comment to {{ ucwords($game->name) }}
+</h2>
 
 <form method="POST" action="{{ route('comments.add', $boardgame_id) }}" class="add-comment-form">
     @csrf
