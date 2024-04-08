@@ -26,8 +26,11 @@
 {{--            </div>--}}
             <div>
                 <button type="submit">Add</button>
+                <a class="cancel-button" href="/dashboard">Cancel</a>
             </div>
         </form>
+
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

@@ -14,18 +14,15 @@
             </div>
             <div class="image-url-input-div">
                 <label for="imageurl">Image URL:</label>
-                <input id="imageurl" name="imageurl" type="text" >
+                <input id="imageurl" name="imageurl" type="text" value="{{ $gameUserInfo->imageUrl }}" placeholder="If left blank, default image will be used">
             </div>
             <div class="favourite-input-div">
                 <label for="favourite">Favourite?</label>
                 <input id="favourite" name="favourite" type="checkbox" {{ $gameUserInfo->favourite ? 'checked="checked"' : "none" }} >
             </div>
-{{--            <div class="comments-input-div">--}}
-{{--                <label for="comments">Comments</label>--}}
-{{--                <textarea id="comments" name="comments">{{ $gameUserInfo->comments }}</textarea>--}}
-{{--            </div>--}}
             <div>
                 <button type="submit">Update</button>
+                <a class="cancel-button" href="/dashboard">Cancel</a>
             </div>
         </form>
         @if ($errors->any())
