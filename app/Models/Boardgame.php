@@ -11,14 +11,14 @@ class Boardgame extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'imageurl'
+        'name'
     ];
 
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
             ->using(BoardgameUser::class)
-            ->withPivot('favourite', 'comments', 'custom_name')
+            ->withPivot('favourite', 'custom_name', 'imageUrl')
             ->withTimestamps();
     }
 }

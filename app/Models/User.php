@@ -51,7 +51,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Boardgame::class)
             ->using(BoardgameUser::class)
-            ->withPivot('favourite', 'comments', 'custom_name')
+            ->withPivot('favourite', 'custom_name', 'imageUrl')
             ->withTimestamps();
     }
 

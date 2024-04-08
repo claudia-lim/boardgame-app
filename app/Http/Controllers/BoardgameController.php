@@ -20,6 +20,7 @@ class BoardgameController extends Controller
         $user = Auth::user();
 //        dd(Boardgame::query()->get());
         $boardgames = $user->boardgames()->get();
+//        dd($boardgames);
 
         return view('boardgames.index', ['boardgames' => $boardgames]);
     }
@@ -42,20 +43,23 @@ class BoardgameController extends Controller
         $request['name'] = trim($request['name']);
         $request['name'] = strtolower($request['name']);
 
+        $imageUrl = $request->validate(['imageurl' => ['string', 'nullable', 'url']]);
+
         if (DB::table('boardgames')->where('name','=', $request->name)->exists()) {
             $game = DB::table('boardgames')->where('name','=', $request->name)->get();
 //            dd($game);
             $user->boardgames()->attach($game[0]->id);
+            $user->boardgames()->updateExistingPivot($game[0]->id, $imageUrl);
 
         } else {
-            $data = $request->validate([
-                'name' => ['required', 'string'],
-                'imageurl' => ['string', 'nullable', 'url']
+            $gameName = $request->validate([
+                'name' => ['required', 'string']
             ]);
 
-            $newGame = Boardgame::create(array_filter($data));
+            $newGame = Boardgame::create(array_filter($gameName));
+//            dd($newGame);
             $user->boardgames()->attach($newGame->id);
-//            $user->boardgames()->updateExistingPivot($newGame->id, ['comments' => $request['comments'] ? $request['comments'] : ""]);
+            $user->boardgames()->updateExistingPivot($newGame->id, $imageUrl);
 
             if ($request['favourite'])
             {
@@ -77,6 +81,7 @@ class BoardgameController extends Controller
         $gameUserInfo = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
         $publicComments = Comment::where('boardgame_id', $id)->where('public', 1)->orderByDesc('created_at')->get();
         $userComments = Comment::where('boardgame_id', $id)->where('user_id', $currentUser->id)->orderByDesc('created_at')->get();
+//        dd($gameUserInfo);
         return view('boardgames.show',
             [
                 'boardgame' => $boardgame,
@@ -95,6 +100,7 @@ class BoardgameController extends Controller
         $boardgame = Boardgame::find($id);
         $currentUser = Auth::user();
         $gameUserInfo = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
+//        dd($gameUserInfo);
         return view('boardgames.edit', ['boardgame' => $boardgame, 'gameUserInfo' => $gameUserInfo]);
     }
 
@@ -104,15 +110,18 @@ class BoardgameController extends Controller
     public function update(Request $request, string $id)
     {
         $game = Boardgame::find($id);
-        $data = $request->validate([
+        $imageUrl = $request->validate([
             'imageurl' => ['string', 'nullable', 'url']
         ]);
-        $game->update(array_filter($data));
+//        $game->update(array_filter($data));
+        $name = $request->validate([
+            'name' => ['string']
+        ]);
 
         $currentUser = Auth::user();
         $currentUser->boardgames()->updateExistingPivot($id, ['custom_name' => $request['name']]);
         $currentUser->boardgames()->updateExistingPivot($id, ['favourite' => $request['favourite'] ? $request['favourite'] : 0]);
-//        $currentUser->boardgames()->updateExistingPivot($id, ['comments' => $request['comments'] ? : ""]);
+        $currentUser->boardgames()->updateExistingPivot($id, $imageUrl);
 
         return to_route('boardgames.show', $id);
     }
@@ -132,7 +141,8 @@ class BoardgameController extends Controller
     //display all the boardgames currently in the boardgame table
     public function allGames() {
         $allGames = Boardgame::query()->get();
-        return view('boardgames.allgames', ['allGames' => $allGames]);
+        $allBoardgameUsers = BoardgameUser::query()->get();
+        return view('boardgames.allgames', ['allGames' => $allGames, 'allBoardgameUsers' => $allBoardgameUsers]);
     }
 
     //Display favourite games for logged in user

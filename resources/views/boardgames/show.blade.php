@@ -3,9 +3,6 @@
     Game: {{$gameUserInfo->custom_name ? ucwords($gameUserInfo->custom_name) : ucwords($boardgame->name) }}
 
     </x-slot>
-{{--    <h2>Current user: {{ Auth::user()->id }}</h2>--}}
-
-{{--    <i class="fa-{{$gameUserInfo->favourite ? 'solid' : 'regular'}} fa-star"></i>--}}
 <div class="show-game">
     <div class="show-in-collection-of">
         <h4>In the collection of:</h4>
@@ -16,7 +13,7 @@
         </ul>
     </div>
     <div>
-        <img class="index-game-image" src='{{ $boardgame->imageurl }}'>
+        <img class="index-game-image" src='{{ $gameUserInfo->imageUrl ? : $boardgame->imageurl }}'>
     </div>
     <div class="fave-icon">
         <form method="POST" action="{{ route('boardgames.updatefave', $boardgame) }}">

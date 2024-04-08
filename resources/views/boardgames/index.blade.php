@@ -19,9 +19,7 @@
             <h2>{{$boardgame->pivot->custom_name ? ucwords($boardgame->pivot->custom_name) : ucwords($boardgame->name) }}</h2>
 
             <div class="index-game-section-images">
-                @if($boardgame->imageurl)
-                    <img class="index-game-image" alt="boardgame image" src="{{ $boardgame->imageurl}}">
-                @endif
+                <img class="index-game-image" alt="boardgame image" src="{{ $boardgame->pivot->imageUrl ? : $boardgame->imageurl}}">
                 <div class="fave-icon">
                     <form method="POST" action="{{ route('boardgames.updatefave', $boardgame) }}">
                         @csrf

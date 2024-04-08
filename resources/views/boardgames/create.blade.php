@@ -4,7 +4,7 @@
 
         {{ __('Add a Game to Collection') }}
     </x-slot>
-    <div >
+    <div class="add-game-main">
 
         <form method="POST" action="{{ route('boardgames.store') }}" class="add-game-form">
             @csrf
