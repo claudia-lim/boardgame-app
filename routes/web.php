@@ -2,12 +2,20 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\BoardgameController;
 
 Route::get('/', [HomepageController::class, 'homepage'])->name('homepage');
-Route::get('/test', [\App\Http\Controllers\ReactController::class, 'test']);
+
+Route::get('/test', [ReactController::class, 'test'])->middleware(['auth', 'verified']);
+Route::get('/test/boardgames', [ReactController::class, 'index'])->middleware(['auth', 'verified']);
+
+Route::get('/allgames', [BoardgameController::class, 'allgames'])->middleware(['auth', 'verified'])->name('boardgames.allgames');
+Route::get('/favourites', [BoardgameController::class, 'favouriteGames'])->middleware(['auth', 'verified'])->name('boardgames.favourites');
+Route::patch('/boardgames/{id}/updatefave', [BoardgameController::class, 'updateFave'])->middleware(['auth', 'verified'])->name('boardgames.updatefave');
+
 
 Route::get('/boardgames', [BoardgameController::class, 'index'])->middleware(['auth', 'verified'])->name('boardgames.index');
 Route::get('/boardgames/create', [BoardgameController::class, 'create'])->middleware(['auth', 'verified'])->name('boardgames.create');

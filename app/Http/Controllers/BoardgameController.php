@@ -9,19 +9,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Inertia\Inertia;
 
 class BoardgameController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() :View
+    public function index()
     {
         $user = Auth::user();
 //        dd(Boardgame::query()->get());
         $boardgames = $user->boardgames()->get();
 //        dd($boardgames);
-
         return view('boardgames.index', ['boardgames' => $boardgames]);
     }
 
