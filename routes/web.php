@@ -7,6 +7,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\BoardgameController;
 
 Route::get('/', [HomepageController::class, 'homepage'])->name('homepage');
+Route::get('/test', [\App\Http\Controllers\ReactController::class, 'test']);
 
 Route::get('/boardgames', [BoardgameController::class, 'index'])->middleware(['auth', 'verified'])->name('boardgames.index');
 Route::get('/boardgames/create', [BoardgameController::class, 'create'])->middleware(['auth', 'verified'])->name('boardgames.create');
