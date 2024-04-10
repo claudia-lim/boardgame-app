@@ -1,6 +1,7 @@
 import React from 'react';
 import AppLayout from '../Layouts/AppLayout.jsx'
 import {Link} from "@inertiajs/react";
+import DeleteGameButton from "../Components/DeleteGameButton.jsx";
 
 function index ({boardgames, user}) {
     const games = boardgames.map((boardgame) => {
@@ -17,6 +18,7 @@ function index ({boardgames, user}) {
                 <div class="index-game-section-buttons">
                     <Link as="button" href={`/test/boardgames/${boardgame.id}`}>Show</Link>
                     <Link as="button" href={`/test/boardgames/${boardgame.id}/edit`}>Edit</Link>
+                    <DeleteGameButton boardgame={boardgame} />
                 </div>
             </section>
     )
