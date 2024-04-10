@@ -4,9 +4,11 @@ import {router} from "@inertiajs/react";
 import DeleteGameButton from "../Components/DeleteGameButton.jsx";
 function Edit({user, boardgame, gameUserInfo}) {
 
+    const startingName = gameUserInfo['custom_name'] ? gameUserInfo['custom_name'] : boardgame.name;
+
     const [data, setData] = useState({
-        name: boardgame.name,
-        imageurl: gameUserInfo.url,
+        name: startingName,
+        imageUrl: gameUserInfo.imageUrl,
         favourite: false
     })
     function handleChange(e) {
@@ -36,7 +38,7 @@ function Edit({user, boardgame, gameUserInfo}) {
     }
     return (
         <>
-            <AppLayout header="edit individual game" user={user}>
+            <AppLayout header="edit individual game React" user={user}>
                 <div>Game info</div>
                 <h2>{boardgame.name}</h2>
 
@@ -50,12 +52,12 @@ function Edit({user, boardgame, gameUserInfo}) {
                                value={data.name}/>
                     </div>
                     <div className="image-url-input-div">
-                        <label htmlFor="imageurl">Image URL:</label>
+                        <label htmlFor="imageUrl">Image URL:</label>
                         <input onChange={handleChange}
-                               id="imageurl"
-                               name="imageurl"
+                               id="imageUrl"
+                               name="imageUrl"
                                type="text"
-                               value={data.imageurl}
+                               value={data.imageUrl}
                                placeholder="If left blank, default image will be used"/>
                     </div>
                     <div className="favourite-input-div">
@@ -68,11 +70,12 @@ function Edit({user, boardgame, gameUserInfo}) {
                     </div>
                     <div>
                         <button type="submit">Update</button>
-                        <a className="cancel-button" href="/dashboard">Cancel</a>
+                        <a className="cancel-button" href="/test/dashboard">Cancel</a>
                     </div>
                 </form>
                 <DeleteGameButton boardgame={boardgame} />
-                <button onClick={checkdata}>Check</button>
+
+                {/*<button onClick={checkdata}>Check</button>*/}
             </AppLayout>
         </>
     )

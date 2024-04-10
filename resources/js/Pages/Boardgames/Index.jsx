@@ -12,7 +12,7 @@ function index ({boardgames, user}) {
                     <img className="index-game-image" alt="boardgame image"
                          src={boardgame.pivot.imageUrl ? boardgame.pivot.imageUrl : boardgame.imageurl}/>
                     <div className="fave-icon">
-
+                        <h6>{boardgame.pivot.favourite? 'Favourite' : 'Not a favourite'}</h6>
                     </div>
                 </div>
                 <div class="index-game-section-buttons">

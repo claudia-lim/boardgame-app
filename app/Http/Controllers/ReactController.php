@@ -90,13 +90,13 @@ class ReactController extends Controller
     {
 //        $game = Boardgame::find($id);
         $imageUrl = $request->validate([
-            'imageurl' => ['string', 'nullable', 'url']
+            'imageUrl' => ['string', 'nullable', 'url']
         ]);
 //        $game->update(array_filter($data));
         $name = $request->validate([
             'name' => ['string']
         ]);
-
+//dd($imageUrl);
         $currentUser = Auth::user();
         $currentUser->boardgames()->updateExistingPivot($id, ['custom_name' => $request['name']]);
         $currentUser->boardgames()->updateExistingPivot($id, ['favourite' => $request['favourite'] ? $request['favourite'] : 0]);
