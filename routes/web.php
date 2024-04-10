@@ -9,13 +9,18 @@ use App\Http\Controllers\BoardgameController;
 
 Route::get('/', [HomepageController::class, 'homepage'])->name('homepage');
 
+//react pages
 Route::get('/test', [ReactController::class, 'test'])->middleware(['auth', 'verified']);
-Route::get('/test/boardgames', [ReactController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/test/boardgames', [ReactController::class, 'index'])->middleware(['auth', 'verified'])->name('react.index');
+Route::get('/test/boardgames/create', [ReactController::class, 'create'])->middleware(['auth', 'verified'])->name('react.create');
+Route::get('/test/boardgames/{id}', [ReactController::class, 'show'])->middleware(['auth', 'verified'])->name('react.show');
+Route::get('/test/boardgames/{id}/edit', [ReactController::class, 'edit'])->middleware(['auth', 'verified'])->name('react.edit');
+Route::get('/test/favourites', [ReactController::class, 'favouriteGames'])->middleware(['auth', 'verified'])->name('react.favourites');
+Route::get('/test/dashboard', [ReactController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('react.dashboard');
 
 Route::get('/allgames', [BoardgameController::class, 'allgames'])->middleware(['auth', 'verified'])->name('boardgames.allgames');
 Route::get('/favourites', [BoardgameController::class, 'favouriteGames'])->middleware(['auth', 'verified'])->name('boardgames.favourites');
 Route::patch('/boardgames/{id}/updatefave', [BoardgameController::class, 'updateFave'])->middleware(['auth', 'verified'])->name('boardgames.updatefave');
-
 
 Route::get('/boardgames', [BoardgameController::class, 'index'])->middleware(['auth', 'verified'])->name('boardgames.index');
 Route::get('/boardgames/create', [BoardgameController::class, 'create'])->middleware(['auth', 'verified'])->name('boardgames.create');
