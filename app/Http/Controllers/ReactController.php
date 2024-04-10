@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Boardgame;
 use App\Models\Comment;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Inertia\Inertia;
 
@@ -27,7 +29,39 @@ class ReactController extends Controller
         return Inertia::render('Boardgames/Create', ['user'=>$user]);
     }
 
-     public function show(string $id)
+    public function store(Request $request)
+    {
+
+        $user = Auth::user();
+        $request['name'] = trim($request['name']);
+        $request['name'] = strtolower($request['name']);
+        $imageUrl = $request->validate(['imageurl' => ['string', 'nullable', 'url']]);
+
+        if (DB::table('boardgames')->where('name','=', $request['name'])->exists()) {
+            $game = DB::table('boardgames')->where('name','=', $request['name'])->get();
+            $user->boardgames()->attach($game[0]->id);
+            $user->boardgames()->updateExistingPivot($game[0]->id, $imageUrl);
+
+        } else {
+            $gameName = $request->validate([
+                'name' => ['required', 'string']
+            ]);
+
+            $newGame = Boardgame::create($gameName);
+            $user->boardgames()->attach($newGame->id);
+            $user->boardgames()->updateExistingPivot($newGame->id, $imageUrl);
+
+            if ($request['favourite'])
+            {
+                $user->boardgames()->updateExistingPivot($newGame->id, ['favourite' => 1]);
+            }
+
+        }
+        return to_route('react.index');
+    }
+
+
+    public function show(string $id)
     {
         $boardgame = Boardgame::find($id);
         $users = $boardgame->users;
