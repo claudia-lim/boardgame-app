@@ -60,16 +60,14 @@ class ReactController extends Controller
         return to_route('react.index');
     }
 
-
     public function show(string $id)
     {
         $boardgame = Boardgame::find($id);
-        $users = $boardgame->users;
+//        $users = $boardgame->users;
         $currentUser = Auth::user();
         $gameUserInfo = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
         $publicComments = Comment::where('boardgame_id', $id)->where('public', 1)->orderByDesc('created_at')->get();
         $userComments = Comment::where('boardgame_id', $id)->where('user_id', $currentUser->id)->orderByDesc('created_at')->get();
-//        dd($gameUserInfo);
         return Inertia::Render('Boardgames/Show',
             [
                 'boardgame' => $boardgame,
@@ -88,6 +86,31 @@ class ReactController extends Controller
         return Inertia::render('Boardgames/Edit', ['user'=>$currentUser, 'boardgame' => $boardgame, 'gameUserInfo' => $gameUserInfo]);
     }
 
+    public function update(Request $request, string $id)
+    {
+//        $game = Boardgame::find($id);
+        $imageUrl = $request->validate([
+            'imageurl' => ['string', 'nullable', 'url']
+        ]);
+//        $game->update(array_filter($data));
+        $name = $request->validate([
+            'name' => ['string']
+        ]);
+
+        $currentUser = Auth::user();
+        $currentUser->boardgames()->updateExistingPivot($id, ['custom_name' => $request['name']]);
+        $currentUser->boardgames()->updateExistingPivot($id, ['favourite' => $request['favourite'] ? $request['favourite'] : 0]);
+        $currentUser->boardgames()->updateExistingPivot($id, $imageUrl);
+
+        return to_route('react.show', $id);
+    }
+
+    public function destroy(string $id)
+    {
+        $user = Auth::user();
+        $user->boardgames()->detach($id);
+        return to_route('react.index');
+    }
     public function favouriteGames()
     {
         $user = Auth::user();

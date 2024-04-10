@@ -33,16 +33,9 @@ function Create({user}) {
             [key]:value,
         }))
     }
-
-    function checkdata(e) {
-        console.log('data', data)
-    }
     function handleSubmit(e) {
         e.preventDefault()
-
-        // console.log('data', data)
         router.post('/test/boardgames/store', data)
-        // post('/test/boardgames/store')
     }
     return (
         <>
@@ -70,7 +63,7 @@ function Create({user}) {
                             <a className="cancel-button" href="/test/dashboard">Cancel</a>
                         </div>
                     </form>
-                    <button onClick={checkdata}>Check</button>
+
                 </div>
 
             </AppLayout>

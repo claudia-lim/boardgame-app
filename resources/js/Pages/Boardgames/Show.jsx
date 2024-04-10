@@ -4,9 +4,12 @@ function Show({user, boardgame, gameUserInfo, publicComments, userComments}) {
     return (
         <>
             <AppLayout header="show individual game" user={user}>
-                <div>Game info</div>
-                <h2>{boardgame.name}</h2>
-
+                <div>
+                    Board game 'official' name:
+                    <h2>{boardgame.name}</h2>
+                    User's custom name:
+                    <h2>{gameUserInfo['custom_name']}</h2>
+                </div>
             </AppLayout>
         </>
     )

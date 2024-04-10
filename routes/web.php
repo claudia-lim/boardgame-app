@@ -14,9 +14,10 @@ Route::get('/test', [ReactController::class, 'test'])->middleware(['auth', 'veri
 Route::get('/test/boardgames', [ReactController::class, 'index'])->middleware(['auth', 'verified'])->name('react.index');
 Route::get('/test/boardgames/create', [ReactController::class, 'create'])->middleware(['auth', 'verified'])->name('react.create');
 Route::post('/test/boardgames/store', [ReactController::class, 'store'])->middleware(['auth', 'verified'])->name('react.store');
-
 Route::get('/test/boardgames/{id}', [ReactController::class, 'show'])->middleware(['auth', 'verified'])->name('react.show');
 Route::get('/test/boardgames/{id}/edit', [ReactController::class, 'edit'])->middleware(['auth', 'verified'])->name('react.edit');
+Route::patch('/test/boardgames/{id}/update', [ReactController::class, 'update'])->middleware(['auth', 'verified'])->name('react.update');
+Route::delete('/test/boardgames/{id}/destroy', [ReactController::class, 'destroy'])->middleware(['auth', 'verified'])->name('react.destroy');
 Route::get('/test/favourites', [ReactController::class, 'favouriteGames'])->middleware(['auth', 'verified'])->name('react.favourites');
 Route::get('/test/dashboard', [ReactController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('react.dashboard');
 
