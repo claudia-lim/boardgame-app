@@ -1,13 +1,23 @@
 <?php
 
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ReactController;
+
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use App\Http\Controllers\ReactController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\BoardgameController;
 
 Route::get('/', [HomepageController::class, 'homepage'])->name('homepage');
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
 //react pages
 Route::get('/test', [ReactController::class, 'test'])->middleware(['auth', 'verified']);
@@ -47,7 +57,9 @@ Route::delete('/addcomment/{id}/delete', [CommentController::class, 'deleteComme
 //    return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard', [BoardgameController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
