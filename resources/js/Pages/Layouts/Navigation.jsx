@@ -11,17 +11,17 @@ function Navigation({user}) {
 
 
                 <div>
-                    <Link href="/test/dashboard">Dashboard</Link>
+                    <Link href="/dashboard">Dashboard</Link>
                 </div>
                 <div>
-                    <Link href="/test/boardgames">Your Collection</Link>
+                    <Link href="/boardgames">Your Collection</Link>
                 </div>
                 <div>
-                    <Link href="/test/favourites">Favourites</Link>
+                    <Link href="/favourites">Favourites</Link>
                 </div>
 
                 <div>
-                    <Link href="/test/boardgames/create">
+                    <Link href="/boardgames/create">
                         Add New Game
                     </Link>
                 </div>
