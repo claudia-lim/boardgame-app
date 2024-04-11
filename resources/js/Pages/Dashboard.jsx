@@ -1,12 +1,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import AppLayout from "@/Pages/Layouts/AppLayout.jsx";
 
 export default function Dashboard({ auth }) {
+    console.log('in new react component dashboard')
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
-        >
+        <AppLayout
+            user={auth.user} header="React Dashboard">
             <Head title="Dashboard" />
 
             <div className="py-12">
@@ -16,6 +16,6 @@ export default function Dashboard({ auth }) {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </AppLayout>
     );
 }

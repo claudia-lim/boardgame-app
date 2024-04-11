@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from '@inertiajs/react'
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink.jsx";
 
 function Navigation({user}) {
     return (
@@ -36,22 +37,10 @@ function Navigation({user}) {
                     <Link href="/profile">Profile</Link>
                 </div>
 
-                {/*<div class="">*/}
-                {/*    {{--                <x-responsive-nav-link :href="route('profile.edit')">--}}*/}
-                {/*    {{--                    {{__('Profile')}}--}}*/}
-                {/*    {{--                </x-responsive-nav-link>--}}*/}
-                {/*    <a href="{{ route('profile.edit') }}">Profile</a>*/}
-
-                {/*    <form method="POST" action="{{ route('logout') }}">*/}
-                {/*        @csrf*/}
-
-                {/*        <x-responsive-nav-link :href="route('logout')"*/}
-                {/*        onclick="event.preventDefault();*/}
-                {/*        this.closest('form').submit();">*/}
-                {/*        {{__('Log Out')}}*/}
-                {/*    </x-responsive-nav-link>*/}
-                {/*</form>*/}
-            </div>
+                <div>
+                    <Link href={route('logout')} method="post">Log Out</Link>
+                </div>
+                </div>
 
 
 
