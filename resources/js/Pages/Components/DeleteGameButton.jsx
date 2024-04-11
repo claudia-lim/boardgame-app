@@ -5,7 +5,7 @@ function DeleteGameButton({boardgame}) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        router.delete(`/test/boardgames/${boardgame.id}/destroy`)
+        router.delete(route('boardgames.destroy', boardgame.id))
     }
     return (
         <form onSubmit={handleSubmit}>

@@ -16,7 +16,7 @@ function Show({user, boardgame, gameUserInfo, publicComments, userComments}) {
                 <div>
                     <img className="index-game-image" src={ gameUserInfo.imageUrl ? gameUserInfo.imageUrl : boardgame.imageurl}/>
                 </div>
-                <Link as="button" href={`/test/boardgames/${boardgame.id}/edit`}>Edit</Link>
+                <Link as="button" href={route('boardgames.edit', boardgame.id)}>Edit</Link>
                 <DeleteGameButton boardgame={boardgame} />
             </AppLayout>
         </>

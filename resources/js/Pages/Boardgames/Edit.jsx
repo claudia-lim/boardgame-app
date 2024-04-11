@@ -30,7 +30,7 @@ function Edit({user, boardgame, gameUserInfo}) {
     }
     function handleSubmit(e) {
         e.preventDefault()
-        router.patch(`/test/boardgames/${boardgame.id}/update`, data)
+        router.patch(route('boardgames.update', boardgame.id), data)
     }
 
     function checkdata(e) {
@@ -70,7 +70,7 @@ function Edit({user, boardgame, gameUserInfo}) {
                     </div>
                     <div>
                         <button type="submit">Update</button>
-                        <a className="cancel-button" href="/test/dashboard">Cancel</a>
+                        <a className="cancel-button" href={route('dashboard')}>Cancel</a>
                     </div>
                 </form>
                 <DeleteGameButton boardgame={boardgame} />

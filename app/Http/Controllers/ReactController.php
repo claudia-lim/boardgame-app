@@ -57,7 +57,7 @@ class ReactController extends Controller
             }
 
         }
-        return to_route('react.index');
+        return to_route('boardgames.index');
     }
 
     public function show(string $id)
@@ -102,14 +102,14 @@ class ReactController extends Controller
         $currentUser->boardgames()->updateExistingPivot($id, ['favourite' => $request['favourite'] ? $request['favourite'] : 0]);
         $currentUser->boardgames()->updateExistingPivot($id, $imageUrl);
 
-        return to_route('react.show', $id);
+        return to_route('boardgames.show', $id);
     }
 
     public function destroy(string $id)
     {
         $user = Auth::user();
         $user->boardgames()->detach($id);
-        return to_route('react.index');
+        return to_route('boardgames.index');
     }
     public function favouriteGames()
     {
@@ -118,9 +118,4 @@ class ReactController extends Controller
         return Inertia::render('Boardgames/Favourites', ['user'=>$user, 'favouriteGames'=>$favouriteGames]);
     }
 
-    public function dashboard()
-    {
-        $user = Auth::user();
-        return Inertia::render('Boardgames/Dashboard', ['user'=>$user]);
-    }
 }

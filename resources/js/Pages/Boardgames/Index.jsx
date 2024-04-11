@@ -15,9 +15,9 @@ function index ({boardgames, user}) {
                         <h6>{boardgame.pivot.favourite? 'Favourite' : 'Not a favourite'}</h6>
                     </div>
                 </div>
-                <div class="index-game-section-buttons">
-                    <Link as="button" href={`/test/boardgames/${boardgame.id}`}>Show</Link>
-                    <Link as="button" href={`/test/boardgames/${boardgame.id}/edit`}>Edit</Link>
+                <div className="index-game-section-buttons">
+                    <Link as='button' href={route('boardgames.show', boardgame.id)}>Show</Link>
+                    <Link as="button" href={route('boardgames.edit', boardgame.id)}>Edit</Link>
                     <DeleteGameButton boardgame={boardgame} />
                 </div>
             </section>

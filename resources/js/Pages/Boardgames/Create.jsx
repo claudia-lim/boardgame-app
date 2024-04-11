@@ -35,7 +35,7 @@ function Create({user}) {
     }
     function handleSubmit(e) {
         e.preventDefault()
-        router.post('/test/boardgames/store', data)
+        router.post(route('boardgames.store'), data)
     }
     return (
         <>
@@ -60,7 +60,7 @@ function Create({user}) {
 
                         <div>
                             <button type="submit">Add</button>
-                            <a className="cancel-button" href="/test/dashboard">Cancel</a>
+                            <a className="cancel-button" href={route('dashboard')}>Cancel</a>
                         </div>
                     </form>
 

@@ -11,17 +11,17 @@ function Navigation({user}) {
 
 
                 <div>
-                    <Link href="/dashboard">Dashboard</Link>
+                    <Link href={route('dashboard')}>Dashboard</Link>
                 </div>
                 <div>
-                    <Link href="/boardgames">Your Collection</Link>
+                    <Link href={route('boardgames.index')}>Your Collection</Link>
                 </div>
                 <div>
-                    <Link href="/favourites">Favourites</Link>
+                    <Link href={route('boardgames.favourites')}>Favourites</Link>
                 </div>
 
                 <div>
-                    <Link href="/boardgames/create">
+                    <Link href={route('boardgames.create')}>
                         Add New Game
                     </Link>
                 </div>
@@ -34,7 +34,7 @@ function Navigation({user}) {
                 </div>
 
                 <div>
-                    <Link href="/profile">Profile</Link>
+                    <Link href={route('profile.edit')}>Profile</Link>
                 </div>
 
                 <div>
