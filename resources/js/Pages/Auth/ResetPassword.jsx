@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/react';
+import Guest from "@/Layouts/GuestLayout.jsx";
 
 export default function ResetPassword({ token, email }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -27,7 +27,7 @@ export default function ResetPassword({ token, email }) {
     };
 
     return (
-        <GuestLayout>
+        <Guest header="Reset Password">
             <Head title="Reset Password" />
 
             <form onSubmit={submit}>
@@ -48,7 +48,7 @@ export default function ResetPassword({ token, email }) {
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div>
                     <InputLabel htmlFor="password" value="Password" />
 
                     <TextInput
@@ -65,7 +65,7 @@ export default function ResetPassword({ token, email }) {
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div>
                     <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
 
                     <TextInput
@@ -81,12 +81,12 @@ export default function ResetPassword({ token, email }) {
                     <InputError message={errors.password_confirmation} className="mt-2" />
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
+                <div>
                     <PrimaryButton className="ms-4" disabled={processing}>
                         Reset Password
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </Guest>
     );
 }

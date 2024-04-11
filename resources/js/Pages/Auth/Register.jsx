@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import Guest from "@/Layouts/GuestLayout";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -22,12 +22,11 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('register'));
     };
 
     return (
-        <GuestLayout>
+        <Guest header="Register">
             <Head title="Register" />
 
             <form onSubmit={submit}>
@@ -48,7 +47,7 @@ export default function Register() {
                     <InputError message={errors.name} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div>
                     <InputLabel htmlFor="email" value="Email" />
 
                     <TextInput
@@ -65,7 +64,7 @@ export default function Register() {
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div>
                     <InputLabel htmlFor="password" value="Password" />
 
                     <TextInput
@@ -82,7 +81,7 @@ export default function Register() {
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div>
                     <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
 
                     <TextInput
@@ -90,28 +89,26 @@ export default function Register() {
                         type="password"
                         name="password_confirmation"
                         value={data.password_confirmation}
-                        className="mt-1 block w-full"
                         autoComplete="new-password"
                         onChange={(e) => setData('password_confirmation', e.target.value)}
                         required
                     />
 
-                    <InputError message={errors.password_confirmation} className="mt-2" />
+                    <InputError message={errors.password_confirmation}  />
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
+                <div>
                     <Link
-                        href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
+                        as='button'
+                        href={route('login')}>
                         Already registered?
                     </Link>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <PrimaryButton disabled={processing}>
                         Register
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </Guest>
     );
 }
