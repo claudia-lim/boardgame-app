@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Boardgame;
-use App\Models\BoardgameUser;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,43 +10,35 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Inertia\Inertia;
 
-class BoardgameController extends Controller
+class ReactController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function test() {
+        $user = Auth::user();
+        return Inertia::render('Test', ['user'=>$user]);
+    }
+
+    public function index() {
+        $user = Auth::user();
+        $boardgames = $user->boardgames()->get();
+        return Inertia::render('Boardgames/Index', ['boardgames'=>$boardgames, 'user'=>$user]);
+    }
+
+    public function create()
     {
         $user = Auth::user();
-//        dd(Boardgame::query()->get());
-        $boardgames = $user->boardgames()->get();
-//        dd($boardgames);
-        return view('boardgames.index', ['boardgames' => $boardgames]);
+        return Inertia::render('Boardgames/Create', ['user'=>$user]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create():View
-    {
-        return view('boardgames.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-//        dd($request);
+
         $user = Auth::user();
         $request['name'] = trim($request['name']);
         $request['name'] = strtolower($request['name']);
-
         $imageUrl = $request->validate(['imageurl' => ['string', 'nullable', 'url']]);
 
-        if (DB::table('boardgames')->where('name','=', $request->name)->exists()) {
-            $game = DB::table('boardgames')->where('name','=', $request->name)->get();
-//            dd($game);
+        if (DB::table('boardgames')->where('name','=', $request['name'])->exists()) {
+            $game = DB::table('boardgames')->where('name','=', $request['name'])->get();
             $user->boardgames()->attach($game[0]->id);
             $user->boardgames()->updateExistingPivot($game[0]->id, $imageUrl);
 
@@ -56,8 +47,7 @@ class BoardgameController extends Controller
                 'name' => ['required', 'string']
             ]);
 
-            $newGame = Boardgame::create(array_filter($gameName));
-//            dd($newGame);
+            $newGame = Boardgame::create($gameName);
             $user->boardgames()->attach($newGame->id);
             $user->boardgames()->updateExistingPivot($newGame->id, $imageUrl);
 
@@ -67,49 +57,38 @@ class BoardgameController extends Controller
             }
 
         }
-        return to_route('boardgames.index');
+        return to_route('react.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id):View
+    public function show(string $id)
     {
         $boardgame = Boardgame::find($id);
-        $users = $boardgame->users;
+//        $users = $boardgame->users;
         $currentUser = Auth::user();
         $gameUserInfo = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
         $publicComments = Comment::where('boardgame_id', $id)->where('public', 1)->orderByDesc('created_at')->get();
         $userComments = Comment::where('boardgame_id', $id)->where('user_id', $currentUser->id)->orderByDesc('created_at')->get();
-//        dd($gameUserInfo);
-        return view('boardgames.show',
+        return Inertia::Render('Boardgames/Show',
             [
                 'boardgame' => $boardgame,
                 'gameUserInfo' => $gameUserInfo,
-                'users'=>$users,
+                'user'=>$currentUser,
                 'publicComments'=>$publicComments,
                 'userComments'=>$userComments
             ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $boardgame = Boardgame::find($id);
         $currentUser = Auth::user();
         $gameUserInfo = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
-//        dd($gameUserInfo);
-        return view('boardgames.edit', ['boardgame' => $boardgame, 'gameUserInfo' => $gameUserInfo]);
+        return Inertia::render('Boardgames/Edit', ['user'=>$currentUser, 'boardgame' => $boardgame, 'gameUserInfo' => $gameUserInfo]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        $game = Boardgame::find($id);
+//        $game = Boardgame::find($id);
         $imageUrl = $request->validate([
             'imageurl' => ['string', 'nullable', 'url']
         ]);
@@ -123,42 +102,25 @@ class BoardgameController extends Controller
         $currentUser->boardgames()->updateExistingPivot($id, ['favourite' => $request['favourite'] ? $request['favourite'] : 0]);
         $currentUser->boardgames()->updateExistingPivot($id, $imageUrl);
 
-        return to_route('boardgames.show', $id);
+        return to_route('react.show', $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $user = Auth::user();
         $user->boardgames()->detach($id);
-//        $deleted = DB::table('boardgames')->where('id', '=', $id)->delete();
-
-        return to_route('boardgames.index');
+        return to_route('react.index');
+    }
+    public function favouriteGames()
+    {
+        $user = Auth::user();
+        $favouriteGames = $user->boardgames()->wherePivotIn('favourite', [1, 'on'])->get();
+        return Inertia::render('Boardgames/Favourites', ['user'=>$user, 'favouriteGames'=>$favouriteGames]);
     }
 
-    //display all the boardgames currently in the boardgame table
-    public function allGames() {
-        $allGames = Boardgame::query()->get();
-        $allBoardgameUsers = BoardgameUser::query()->get();
-        return view('boardgames.allgames', ['allGames' => $allGames, 'allBoardgameUsers' => $allBoardgameUsers]);
+    public function dashboard()
+    {
+        $user = Auth::user();
+        return Inertia::render('Boardgames/Dashboard', ['user'=>$user]);
     }
-
-    //Display favourite games for logged in user
-    public function favouriteGames() {
-        $currentUser = Auth::user();
-        $favouriteGames = $currentUser->boardgames()->wherePivotIn('favourite', [1, 'on'])->get();
-        return view('boardgames.favourites', ['favouriteGames' => $favouriteGames]);
-    }
-
-    //Controller for favourite star button on index page
-    public function updateFave(string $id) {
-        $currentUser = Auth::user();
-        $currentFaveStatus = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot->favourite;
-        $currentUser->boardgames()->updateExistingPivot($id,['favourite' => $currentFaveStatus ? 0 : 1] );
-//        return to_route('boardgames.index');
-        return back();
-    }
-
 }
