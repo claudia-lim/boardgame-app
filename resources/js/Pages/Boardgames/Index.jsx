@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import AppLayout from '../Layouts/AppLayout.jsx'
 import {Link} from "@inertiajs/react";
 import DeleteGameButton from "../Components/DeleteGameButton.jsx";
+import FavouriteButton from "@/Pages/Components/FavouriteButton.jsx";
 
 function index ({boardgames, user}) {
+
+
     const games = boardgames.map((boardgame) => {
+        // const [favouriteState, setFavouriteState] = useState("");
+        console.log(boardgame);
         return (
             <section className="index-game-section" key={boardgame.id}>
                 <h2>{boardgame.pivot.custom_name ? boardgame.pivot.custom_name : boardgame.name}</h2>
@@ -12,7 +17,7 @@ function index ({boardgames, user}) {
                     <img className="index-game-image" alt="boardgame image"
                          src={boardgame.pivot.imageUrl ? boardgame.pivot.imageUrl : boardgame.imageurl}/>
                     <div className="fave-icon">
-                        <h6>{boardgame.pivot.favourite? 'Favourite' : 'Not a favourite'}</h6>
+                        <FavouriteButton boardgame={boardgame} favourite={boardgame.pivot.favourite}/>
                     </div>
                 </div>
                 <div className="index-game-section-buttons">

@@ -158,7 +158,9 @@ class BoardgameController extends Controller
         $currentFaveStatus = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot->favourite;
         $currentUser->boardgames()->updateExistingPivot($id,['favourite' => $currentFaveStatus ? 0 : 1] );
 //        return to_route('boardgames.index');
-        return back();
+        return '';
     }
+
+
 
 }

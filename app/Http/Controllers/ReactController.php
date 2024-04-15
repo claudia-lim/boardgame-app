@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Boardgame;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class ReactController extends Controller
 {
@@ -114,8 +118,30 @@ class ReactController extends Controller
     public function favouriteGames()
     {
         $user = Auth::user();
-        $favouriteGames = $user->boardgames()->wherePivotIn('favourite', [1, 'on'])->get();
+        $favouriteGames = $user->boardgames()->wherePivotIn('favourite', [1, 'on', 'true'])->get();
         return Inertia::render('Boardgames/Favourites', ['user'=>$user, 'favouriteGames'=>$favouriteGames]);
     }
 
+    public function deleteForever($id) {
+        $deleted = DB::table('boardgames')->where('id', '=', $id)->delete();
+        return to_route('boardgames.allgames');
+
+    }
+
+
+
+    public function updateFave(Request $request, string $id) {
+//        Log::info($request);
+        $favourite = $request->validate([
+            'favourite'=>['boolean']
+        ]);
+
+        if (!$favourite['favourite']) {
+            $favourite['favourite'] = 0;
+        }
+//        Log::info($favourite['favourite']);
+        $currentUser = Auth::user();
+        $currentUser->boardgames()->updateExistingPivot($id, ['favourite'=>$favourite['favourite']] );
+        return 'updated game favourite status';
+    }
 }

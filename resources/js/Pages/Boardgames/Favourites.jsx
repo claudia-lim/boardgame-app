@@ -1,6 +1,7 @@
 import React from 'react';
 import AppLayout from '../Layouts/AppLayout.jsx'
-function Favourite({user}) {
+function Favourites({user, favouriteGames}) {
+    console.log('favourite games', favouriteGames);
     return (
         <>
             <AppLayout header="Favourites - React" user={user}>
@@ -10,4 +11,4 @@ function Favourite({user}) {
     )
 }
 
-export default Favourite;
+export default Favourites;

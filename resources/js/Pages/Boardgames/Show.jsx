@@ -2,8 +2,10 @@ import React from 'react';
 import AppLayout from '../Layouts/AppLayout.jsx'
 import {Link} from "@inertiajs/react";
 import DeleteGameButton from "../Components/DeleteGameButton.jsx";
+import FavouriteButton from "@/Pages/Components/FavouriteButton.jsx";
 function Show({user, boardgame, gameUserInfo, publicComments, userComments}) {
     console.log(boardgame);
+    console.log('is it a favourite?', gameUserInfo.favourite);
     return (
         <>
             <AppLayout header="show individual game" user={user}>
@@ -16,6 +18,10 @@ function Show({user, boardgame, gameUserInfo, publicComments, userComments}) {
                 <div>
                     <img className="index-game-image" src={ gameUserInfo.imageUrl ? gameUserInfo.imageUrl : boardgame.imageurl}/>
                 </div>
+                <div>
+
+                </div>
+                <FavouriteButton favourite={gameUserInfo.favourite} boardgame={boardgame}/>
                 <Link as="button" href={route('boardgames.edit', boardgame.id)}>Edit</Link>
                 <DeleteGameButton boardgame={boardgame} />
             </AppLayout>

@@ -9,7 +9,7 @@ function Edit({user, boardgame, gameUserInfo}) {
     const [data, setData] = useState({
         name: startingName,
         imageUrl: gameUserInfo.imageUrl,
-        favourite: false
+        favourite: gameUserInfo.favourite
     })
     function handleChange(e) {
         const key = e.target.id;

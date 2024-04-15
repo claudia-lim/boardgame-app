@@ -12,7 +12,7 @@
         "@vitejs/plugin-react": "^4.2.0",
         "alpinejs": "^3.4.2",
         "autoprefixer": "^10.4.12",
-        "axios": "^1.6.4",
+        "axios": "^1.6.8",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.31",
         "react": "^18.2.0",
@@ -21,6 +21,12 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.5.2",
+        "@fortawesome/fontawesome-svg-core": "^6.5.2",
+        "@fortawesome/free-brands-svg-icons": "^6.5.2",
+        "@fortawesome/free-regular-svg-icons": "^6.5.2",
+        "@fortawesome/free-solid-svg-icons": "^6.5.2",
+        "@fortawesome/react-fontawesome": "^0.2.0",
         "@inertiajs/react": "^1.0.15",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
