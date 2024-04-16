@@ -4,8 +4,7 @@ import {Link} from "@inertiajs/react";
 import DeleteGameButton from "../Components/DeleteGameButton.jsx";
 import FavouriteButton from "@/Pages/Components/FavouriteButton.jsx";
 function Show({user, boardgame, gameUserInfo, publicComments, userComments}) {
-    console.log(boardgame);
-    console.log('is it a favourite?', gameUserInfo.favourite);
+    // console.log(boardgame);
     return (
         <>
             <AppLayout header="show individual game" user={user}>
