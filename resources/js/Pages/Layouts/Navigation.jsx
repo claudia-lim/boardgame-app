@@ -38,7 +38,7 @@ function Navigation({user}) {
                 </div>
 
                 <div>
-                    <Link href={route('logout')} method="post">Log Out</Link>
+                    <Link href={route('logout')} method="post" as='button'>Log Out</Link>
                 </div>
                 </div>
 

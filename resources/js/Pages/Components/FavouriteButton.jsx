@@ -8,8 +8,6 @@ import axios from 'axios';
 function FavouriteButton({favourite, boardgame}) {
     const [favouriteDisplay, setFavouriteDisplay] = useState(favourite);
         const handleFave = () => {
-            console.log('in handle fave func')
-            console.log('favourite', favourite);
             axios.patch(route('boardgames.updatefave', boardgame.id), {favourite: favouriteDisplay} )
                 .then(res => {
                     console.log(res.data);
@@ -21,8 +19,6 @@ function FavouriteButton({favourite, boardgame}) {
 
     useEffect(() => {
         handleFave();
-        console.log('use Effect triggered');
-        console.log('favouriteDisplay currently: ', favouriteDisplay);
     }, [favouriteDisplay]);
 
 
