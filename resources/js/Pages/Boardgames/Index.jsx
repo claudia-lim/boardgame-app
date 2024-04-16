@@ -8,8 +8,6 @@ function index ({boardgames, user}) {
 
 
     const games = boardgames.map((boardgame) => {
-        // const [favouriteState, setFavouriteState] = useState("");
-        console.log(boardgame);
         return (
             <section className="index-game-section" key={boardgame.id}>
                 <h2>{boardgame.pivot.custom_name ? boardgame.pivot.custom_name : boardgame.name}</h2>

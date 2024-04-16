@@ -31,6 +31,7 @@ function Show({user, boardgame, gameUserInfo, publicComments, userComments}) {
                 </div>
                 <FavouriteButton favourite={gameUserInfo.favourite} boardgame={boardgame}/>
                 <div>
+                    <a href={route('comments.create', boardgame.id)}><button>Add a Comment</button></a>
                     <button onClick={toggleComments}>Toggle Comments: public/user</button>
                     <h6>{currentCommentsDisplay}</h6>
                     <CommentsDisplay comments={commentsToDisplay} />
