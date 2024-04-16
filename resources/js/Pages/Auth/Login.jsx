@@ -79,6 +79,12 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div>
+
+                    <PrimaryButton disabled={processing}>
+                        Log in
+                    </PrimaryButton>
+                </div>
+            </form>
                     {canResetPassword && (
                         <Link
                             as='button'
@@ -88,12 +94,6 @@ export default function Login({ status, canResetPassword }) {
                             Forgot your password?
                         </Link>
                     )}
-
-                    <PrimaryButton disabled={processing}>
-                        Log in
-                    </PrimaryButton>
-                </div>
-            </form>
         </Guest>
     );
 }
