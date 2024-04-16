@@ -6,6 +6,7 @@ use App\Models\Boardgame;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class CommentController extends Controller
@@ -13,17 +14,13 @@ class CommentController extends Controller
     public function create($boardgame_id) {
         $boardgame = Boardgame::find($boardgame_id);
         $currentUser = Auth::user();
-//        dd($boardgame);
-//        return view('comments.addcomment', ['boardgame_id'=>$boardgame_id, 'game' => $boardgame]);
         return Inertia::render('Boardgames/AddComment', [
             'user'=>$currentUser,
             'boardgame'=>$boardgame
         ]);
     }
 
-
     public function addComment(Request $request, string $id) {
-//        dd($request['public']);
         $currentUser = Auth::user();
         $request['comment'] = trim($request['comment']);
         $data = $request->validate([
@@ -32,15 +29,14 @@ class CommentController extends Controller
         ]);
         $data['boardgame_id'] = $id;
         $data['user_id'] = $currentUser->id;
-//        dd($data);
-
         $newComment = Comment::create($data);
-//        dd($newComment);
         return to_route('boardgames.show', $id);
     }
 
-    public function deleteComment($commentId) {
-        $deleted = Comment::where('id', $commentId)->delete();
-        return back();
+    public function deleteComment($id) {
+        $boardgameId = Comment::where('id', $id)->select('comments.boardgame_id')->get();
+        Log::info($boardgameId);
+        $deleted = Comment::where('id', $id)->delete();
+        return to_route('boardgames.show', $boardgameId[0]['boardgame_id']);
     }
 }

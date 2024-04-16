@@ -34,10 +34,10 @@ function Show({user, boardgame, gameUserInfo, publicComments, userComments}) {
                     <a href={route('comments.create', boardgame.id)}><button>Add a Comment</button></a>
                     <button onClick={toggleComments}>Toggle Comments: public/user</button>
                     <h6>{currentCommentsDisplay}</h6>
-                    <CommentsDisplay comments={commentsToDisplay} />
+                    <CommentsDisplay comments={commentsToDisplay} user={user} />
                 </div>
-                <Link as="button" href={route('boardgames.edit', boardgame.id)}>Edit</Link>
-                <DeleteGameButton boardgame={boardgame} />
+                <Link as="button" href={route('boardgames.edit', boardgame.id)}>Edit Game</Link>
+                <DeleteGameButton boardgame={boardgame}/>
             </AppLayout>
         </>
     )

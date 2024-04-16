@@ -21,7 +21,7 @@ function index ({boardgames, user}) {
                 <div className="index-game-section-buttons">
                     <Link as='button' href={route('boardgames.show', boardgame.id)}>Show</Link>
                     <Link as="button" href={route('boardgames.edit', boardgame.id)}>Edit</Link>
-                    <DeleteGameButton boardgame={boardgame} />
+                    <DeleteGameButton boardgame={boardgame}/>
                 </div>
             </section>
     )

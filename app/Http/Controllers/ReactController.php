@@ -67,7 +67,6 @@ class ReactController extends Controller
     public function show(string $id)
     {
         $boardgame = Boardgame::find($id);
-//        $users = $boardgame->users;
         $currentUser = Auth::user();
         $gameUserInfo = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
         $publicComments = Comment::where('boardgame_id', $id)->join('users', 'user_id', '=', 'users.id')->where('public', 1)->select('comments.*', 'users.name')->orderByDesc('created_at')->get();

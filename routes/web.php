@@ -11,6 +11,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\BoardgameController;
 
 //Route::get('/', [HomepageController::class, 'homepage'])->name('homepage');
+
  Route::get('/', function () {
      return Inertia::render('Welcome', [
          'canLogin' => Route::has('login'),
@@ -19,6 +20,10 @@ use App\Http\Controllers\BoardgameController;
          'phpVersion' => PHP_VERSION,
      ]);
  });
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 //react pages
 Route::get('/test', [ReactController::class, 'test'])->middleware(['auth', 'verified']);
@@ -33,16 +38,12 @@ Route::get('/favourites', [ReactController::class, 'favouriteGames'])->middlewar
 
 Route::patch('/updatefave/{id}', [ReactController::class, 'updateFave'])->middleware(['auth', 'verified'])->name('boardgames.updatefave');
 
-Route::get('/allgames', [BoardgameController::class, 'allgames'])->middleware(['auth', 'verified'])->name('boardgames.allgames');
-Route::delete('allgames/{id}/delete', [ReactController::class, 'deleteForever'])->middleware(['auth', 'verified'])->name('allgames.delete');
-
 Route::get('/addcomment/{id}', [CommentController::class, 'create'])->middleware(['auth', 'verified'])->name('comments.create');
 Route::post('/addcomment/{id}/add', [CommentController::class, 'addComment'])->middleware(['auth', 'verified'])->name('comments.add');
 Route::delete('/addcomment/{id}/delete', [CommentController::class, 'deleteComment'])->middleware(['auth', 'verified'])->name('comments.delete');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/allgames', [BoardgameController::class, 'allgames'])->middleware(['auth', 'verified'])->name('boardgames.allgames');
+Route::delete('allgames/{id}/delete', [ReactController::class, 'deleteForever'])->middleware(['auth', 'verified'])->name('allgames.delete');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
