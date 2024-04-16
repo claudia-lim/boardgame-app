@@ -35,8 +35,8 @@ class CommentController extends Controller
 
     public function deleteComment($id) {
         $boardgameId = Comment::where('id', $id)->select('comments.boardgame_id')->get();
-        Log::info($boardgameId);
-        $deleted = Comment::where('id', $id)->delete();
+//        Log::info($boardgameId);
+        Comment::where('id', $id)->delete();
         return to_route('boardgames.show', $boardgameId[0]['boardgame_id']);
     }
 }

@@ -38,7 +38,7 @@ function Edit({user, boardgame, gameUserInfo}) {
     }
     return (
         <>
-            <AppLayout header="edit individual game React" user={user}>
+            <AppLayout header={`Edit: ${boardgame.name}`} user={user}>
                 <div>Game info</div>
                 <h2>{boardgame.name}</h2>
 
@@ -68,12 +68,16 @@ function Edit({user, boardgame, gameUserInfo}) {
                                checked={data.favourite}
                                type="checkbox"/>
                     </div>
-                    <div>
+                    <div className='buttons-div'>
                         <button type="submit">Update</button>
-                        <a className="cancel-button" href={route('dashboard')}>Cancel</a>
+                        <a href={route('boardgames.show', boardgame.id)}>
+                            <button type='button'>
+                            Cancel
+                            </button>
+                        </a>
                     </div>
+                <DeleteGameButton boardgame={boardgame}/>
                 </form>
-                <DeleteGameButton boardgame={boardgame} />
 
                 {/*<button onClick={checkdata}>Check</button>*/}
             </AppLayout>

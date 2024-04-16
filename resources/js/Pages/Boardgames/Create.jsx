@@ -39,7 +39,7 @@ function Create({user}) {
     }
     return (
         <>
-            <AppLayout header="Add New Game - React" user={user}>
+            <AppLayout header="Add New Game" user={user}>
 
                 <div className="add-game-main">
 
@@ -58,9 +58,13 @@ function Create({user}) {
                             <input id="favourite" type="checkbox" onChange={handleCheckbox}/>
                         </div>
 
-                        <div>
+                        <div className='buttons-div'>
                             <button type="submit">Add</button>
-                            <a className="cancel-button" href={route('dashboard')}>Cancel</a>
+                            <a href={route('dashboard')}>
+                                <button type='button'>
+                                    Cancel
+                                </button>
+                            </a>
                         </div>
                     </form>
 

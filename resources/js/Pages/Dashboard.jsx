@@ -6,16 +6,9 @@ export default function Dashboard({ auth }) {
     console.log('in new react component dashboard')
     return (
         <AppLayout
-            user={auth.user} header="React Dashboard">
+            user={auth.user} header="Dashboard">
             <Head title="Dashboard" />
-
-            <div>
-                <div>
-                    <div>
-                        <div>You're logged in!</div>
-                    </div>
-                </div>
-            </div>
+            <div>You're logged in!</div>
         </AppLayout>
     );
 }

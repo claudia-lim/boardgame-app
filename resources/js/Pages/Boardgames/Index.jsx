@@ -10,7 +10,7 @@ function index ({boardgames, user}) {
     const games = boardgames.map((boardgame) => {
         return (
             <section className="index-game-section" key={boardgame.id}>
-                <h2>{boardgame.pivot.custom_name ? boardgame.pivot.custom_name : boardgame.name}</h2>
+                <h2 className='game-name'>{boardgame.pivot.custom_name ? boardgame.pivot.custom_name : boardgame.name}</h2>
                 <div className="index-game-section-images">
                     <img className="index-game-image" alt="boardgame image"
                          src={boardgame.pivot.imageUrl ? boardgame.pivot.imageUrl : boardgame.imageurl}/>
@@ -28,11 +28,11 @@ function index ({boardgames, user}) {
     });
 
     return (
-        <AppLayout header="Your Collection - React component" user={user}>
+        <AppLayout header="Your Game Collection" user={user}>
 
-            <div className="index-games-display">
+            <main className="index-games-display">
                 {games}
-            </div>
+            </main>
 
         </AppLayout>
     )

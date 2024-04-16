@@ -11,7 +11,7 @@ function Favourites({user, favouriteGames}) {
         console.log(boardgame);
         return (
             <section className="index-game-section" key={boardgame.id}>
-                <h2>{boardgame.pivot.custom_name ? boardgame.pivot.custom_name : boardgame.name}</h2>
+                <h2 className='game-name'>{boardgame.pivot.custom_name ? boardgame.pivot.custom_name : boardgame.name}</h2>
                 <div className="index-game-section-images">
                     <img className="index-game-image" alt="boardgame image"
                          src={boardgame.pivot.imageUrl ? boardgame.pivot.imageUrl : boardgame.imageurl}/>
@@ -30,7 +30,7 @@ function Favourites({user, favouriteGames}) {
 
     return (
         <>
-            <AppLayout header="Favourites - React" user={user}>
+            <AppLayout header="Favourite Games" user={user}>
                 <div className="index-games-display">
                     {favouriteGamesDisplay}
                 </div>
