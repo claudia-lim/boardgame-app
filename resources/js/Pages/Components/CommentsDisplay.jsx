@@ -12,7 +12,7 @@ function CommentsDisplay({ comments, user}) {
             <p>Created at: {createdAt}</p>
                 {createdAt < editedAt ? <><p>Edited at: {editedAt}</p><p>Edited</p></> : ''}
             <p>{comment.public ? 'public' : 'private'}</p>
-                {user.id === comment['user_id'] ? <a href={route('comments.edit', comment.id)}><button>Edit</button></a> : ''}
+                {user.id === comment['user_id'] ? <a href={route('comments.edit', comment.id)}><button className='comment-button'>Edit Comment</button></a> : ''}
                 {user.id === comment['user_id'] ? <DeleteCommentButton commentId={comment.id}/> : <div></div>}
             </section>
         )

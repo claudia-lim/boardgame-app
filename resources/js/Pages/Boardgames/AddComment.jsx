@@ -36,7 +36,7 @@ function AddComment({user, boardgame}) {
     return (
         <AppLayout header={`Add A Comment to ${boardgame.name}`} user={user}>
             <form onSubmit={handleSubmit}>
-                <label htmlFor='comment'>Comment</label>
+                <label htmlFor='comment'>Comment: </label>
                 <input onChange={handleChange} id='comment' type='text'></input>
                 <label htmlFor='public'>Make Post Private?</label>
                 <input onChange={handleCheckbox} id='public' type='checkbox'></input>
