@@ -11,7 +11,8 @@ use Inertia\Inertia;
 
 class CommentController extends Controller
 {
-    public function create($boardgame_id) {
+    public function create($boardgame_id)
+    {
         $boardgame = Boardgame::find($boardgame_id);
         $currentUser = Auth::user();
         return Inertia::render('Boardgames/AddComment', [
@@ -20,7 +21,8 @@ class CommentController extends Controller
         ]);
     }
 
-    public function addComment(Request $request, string $id) {
+    public function addComment(Request $request, string $id)
+    {
         $currentUser = Auth::user();
         $request['comment'] = trim($request['comment']);
         $data = $request->validate([
@@ -33,15 +35,29 @@ class CommentController extends Controller
         return to_route('boardgames.show', $id);
     }
 
-    public function deleteComment(string $id) {
+    public function showPublicComments(string $id)
+    {
+        $publicComments = Comment::where('boardgame_id', $id)->join('users', 'user_id', '=', 'users.id')->where('public', 1)->select('comments.*', 'users.name')->orderByDesc('created_at')->paginate(4);
+        return $publicComments;
+    }
+
+    public function showUserComments(string $id)
+    {
+        $currentUser = Auth::user();
+        $userComments = Comment::where('boardgame_id', $id)->join('users', 'user_id', '=', 'users.id')->where('user_id', $currentUser->id)->select('comments.*', 'users.name')->orderByDesc('created_at')->paginate(4);
+        return $userComments;
+    }
+
+    public function deleteComment(string $id)
+    {
         $boardgameId = Comment::where('id', $id)->select('comments.boardgame_id')->get();
 //        Log::info($boardgameId);
         Comment::where('id', $id)->delete();
         return to_route('boardgames.show', $boardgameId[0]['boardgame_id']);
     }
 
-    public function editComment($id) {
-//        $currentComment = Comment::where('id', $id)->first();
+    public function editComment($id)
+    {
         $currentComment = Comment::find($id);
         $user = Auth::user();
         return Inertia::render('Boardgames/EditComment', [

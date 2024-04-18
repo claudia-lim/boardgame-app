@@ -60,6 +60,11 @@ button:hover{
     cursor: pointer;
 }
 
+.spinner {
+    font-size: 5rem;
+
+}
+
 a {
     text-decoration: none;
 }
@@ -204,7 +209,7 @@ input[type='text'] {
 }
 
 
-#comments {
+#comments-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -213,6 +218,7 @@ input[type='text'] {
     border: solid 1px white;
     padding: 1.5rem;
     margin: 0.5rem;
+    width: 50%;
 }
 
 .comment-button {
@@ -225,23 +231,47 @@ input[type='text'] {
     background-color: var(--button-color-3);
 }
 
-.all-comments h4 {
-    padding: 0;
-    margin: 0;
-    text-decoration: underline;
+.comments-subheading {
+    text-transform: capitalize;
 }
 
+.individual-comment {
+/*    !*border: 1px solid var(--header-text-color);*!*/
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+/*    gap: 0.5rem;*/
+}
+
+.pagination-nav {
+    display: flex;
+}
+
+.pagination-arrows {
+    background: none;
+    color: var(--button-color-3);
+    box-shadow: none;
+}
+
+.pagination-arrows:hover {
+    background: none;
+    color: var(--button-color-3);
+    box-shadow: none;
+}
 
 .hidden {
     display: none;
 }
 
 .public {
-    border: 2px solid green;
+    border: 1px solid #75d975;
 }
 
 .private {
-    border: 2px solid red;
+    border: 1px solid #ea6666;
 }
 
 

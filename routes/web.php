@@ -38,6 +38,9 @@ Route::get('/favourites', [ReactController::class, 'favouriteGames'])->middlewar
 
 Route::patch('/updatefave/{id}', [ReactController::class, 'updateFave'])->middleware(['auth', 'verified'])->name('boardgames.updatefave');
 
+Route::get('/boardgames/{id}/comments/public', [CommentController::class, 'showPublicComments'])->middleware(['auth', 'verified'])->name('boardgames.comments.public');
+Route::get('/boardgames/{id}/comments/user', [CommentController::class, 'showUserComments'])->middleware(['auth', 'verified'])->name('boardgames.comments.user');
+
 Route::get('/addcomment/{id}', [CommentController::class, 'create'])->middleware(['auth', 'verified'])->name('comments.create');
 Route::post('/addcomment/{id}/add', [CommentController::class, 'addComment'])->middleware(['auth', 'verified'])->name('comments.add');
 Route::delete('/comment/{id}/delete', [CommentController::class, 'deleteComment'])->middleware(['auth', 'verified'])->name('comments.delete');
