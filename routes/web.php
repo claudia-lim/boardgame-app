@@ -40,7 +40,9 @@ Route::patch('/updatefave/{id}', [ReactController::class, 'updateFave'])->middle
 
 Route::get('/addcomment/{id}', [CommentController::class, 'create'])->middleware(['auth', 'verified'])->name('comments.create');
 Route::post('/addcomment/{id}/add', [CommentController::class, 'addComment'])->middleware(['auth', 'verified'])->name('comments.add');
-Route::delete('/addcomment/{id}/delete', [CommentController::class, 'deleteComment'])->middleware(['auth', 'verified'])->name('comments.delete');
+Route::delete('/comment/{id}/delete', [CommentController::class, 'deleteComment'])->middleware(['auth', 'verified'])->name('comments.delete');
+Route::get('/comment/{id}/edit', [CommentController::class, 'editComment'])->middleware(['auth', 'verified'])->name('comments.edit');
+Route::patch('/comment/{id}/update', [CommentController::class, 'updateComment'])->middleware(['auth', 'verified'])->name('comments.update');
 
 Route::get('/allgames', [BoardgameController::class, 'allgames'])->middleware(['auth', 'verified'])->name('boardgames.allgames');
 Route::delete('allgames/{id}/delete', [ReactController::class, 'deleteForever'])->middleware(['auth', 'verified'])->name('allgames.delete');

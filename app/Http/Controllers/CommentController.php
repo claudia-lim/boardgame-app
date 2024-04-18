@@ -33,10 +33,33 @@ class CommentController extends Controller
         return to_route('boardgames.show', $id);
     }
 
-    public function deleteComment($id) {
+    public function deleteComment(string $id) {
         $boardgameId = Comment::where('id', $id)->select('comments.boardgame_id')->get();
 //        Log::info($boardgameId);
         Comment::where('id', $id)->delete();
         return to_route('boardgames.show', $boardgameId[0]['boardgame_id']);
+    }
+
+    public function editComment($id) {
+//        $currentComment = Comment::where('id', $id)->first();
+        $currentComment = Comment::find($id);
+        $user = Auth::user();
+        return Inertia::render('Boardgames/EditComment', [
+            'currentComment'=>$currentComment,
+            'user'=>$user]);
+    }
+
+    public function updateComment(Request $request, string $id)
+    {
+        $data = $request->validate([
+            'comment' => ['string', 'required'],
+            'public' => ['required', 'boolean']
+        ]);
+        $currentComment = Comment::find($id);
+        $currentComment->comment = $data['comment'];
+        $currentComment->public = $data['public'];
+        $currentComment->save();
+//        Log::info($currentComment->boardgame_id);
+        return to_route('boardgames.show', $currentComment->boardgame_id);
     }
 }

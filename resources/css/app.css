@@ -76,6 +76,11 @@ input[type='checkbox'] {
     accent-color: var(--header-bg-color);
 }
 
+.welcome-nav {
+    display: flex;
+    gap: 1rem;
+}
+
 /*Boardgame.Index view specific*/
 
 .newgame-button-div {

@@ -30,7 +30,7 @@ function Edit({user, boardgame, gameUserInfo}) {
     }
     function handleSubmit(e) {
         e.preventDefault()
-        router.patch(route('boardgames.update', boardgame.id), data)
+        router.patch(route('comments.update', boardgame.id), data)
     }
 
     function checkdata(e) {
