@@ -6,13 +6,17 @@ import axios from 'axios';
 
 function FavouriteButton({favourite, boardgame}) {
     const [favouriteDisplay, setFavouriteDisplay] = useState(favourite);
+    const [animate, setAnimate] = useState('');
+    const [errorMessage, setErrorMessage] = useState('')
     const handleFave = () => {
         axios.patch(route('boardgames.updatefave', boardgame.id), {favourite: favouriteDisplay} )
             .then(res => {
-                console.log(res.data);
+                console.log(res);
+                setAnimate('');
             })
             .catch(err => {
                 console.log(err);
+                setErrorMessage('An error has occurred');
             })
     }
 
@@ -23,21 +27,30 @@ function FavouriteButton({favourite, boardgame}) {
 
     function handleClick() {
         setFavouriteDisplay(!favouriteDisplay);
+        setAnimate('fa-spin')
     }
+
+
 
 if (favouriteDisplay) {
     return (
-        <div onClick={handleClick}>
-                <FontAwesomeIcon icon={faStar} className='favourite-icon solid'/>
-        </div>
+        <>
+            <div onClick={handleClick}>
+                    <FontAwesomeIcon icon={faStar} className={`favourite-icon solid ${animate}`}/>
+            </div>
+            {errorMessage && <p>{errorMessage}</p>}
+        </>
         )
     } else {
         return (
-            <div onClick={handleClick}>
-                    <FontAwesomeIcon icon={faRStar} className='favourite-icon regular'/>
-            </div>
+            <>
+                <div onClick={handleClick}>
+                    <FontAwesomeIcon icon={faRStar} className={`favourite-icon regular ${animate}`}/>
+                </div>
+                {errorMessage && <p>{errorMessage}</p>}
+            </>
         )
-    }
+}
 }
 
 export default FavouriteButton;

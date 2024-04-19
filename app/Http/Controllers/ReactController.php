@@ -123,20 +123,14 @@ class ReactController extends Controller
 
     }
 
-
-
     public function updateFave(Request $request, string $id) {
-//        Log::info($request);
         $favourite = $request->validate([
             'favourite'=>['boolean']
         ]);
 
-        if (!$favourite['favourite']) {
-            $favourite['favourite'] = 0;
-        }
-//        Log::info($favourite['favourite']);
+//        Log::info($favourite);
         $currentUser = Auth::user();
         $currentUser->boardgames()->updateExistingPivot($id, ['favourite'=>$favourite['favourite']] );
-        return 'updated game favourite status';
+        return 'updated game with favourite status of ' . ($favourite['favourite'] ? 'true' : 'false');
     }
 }
