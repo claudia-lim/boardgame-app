@@ -38,15 +38,17 @@ function EditComment (currentComment, user) {
 
     return (
         <AppLayout header='Edit Comment' user={user}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='comment-form'>
                 <label htmlFor='comment'>Comment: </label>
-                <input onChange={handleChange} id='comment' type='text' value={updatedComment.comment}></input>
-                <label htmlFor='public'>Make Post Private?</label>
-                <input onChange={handleCheckbox} id='public' type='checkbox' checked={!updatedComment.public}></input>
+                <textarea onChange={handleChange} id='comment' type='text' value={updatedComment.comment} className='comment-input'></textarea>
+                <div>
+                    <label htmlFor='public'>Make Post Private?</label>
+                    <input onChange={handleCheckbox} id='public' type='checkbox' checked={!updatedComment.public} className='comment-public-checkbox'></input>
+                </div>
                 <div className='buttons-div'>
-                    <button>Update Comment</button>
+                    <button className='comment-button'>Update Comment</button>
                     <a href={route('boardgames.show', currentComment.currentComment.boardgame_id)}>
-                        <button type='button'>
+                        <button type='button' className='comment-button'>
                             Cancel
                         </button>
                     </a>

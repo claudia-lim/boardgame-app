@@ -38,40 +38,33 @@ function Create({user}) {
         router.post(route('boardgames.store'), data)
     }
     return (
-        <>
-            <AppLayout header="Add New Game" user={user}>
+        <AppLayout header="Add New Game" user={user}>
 
-                <div className="add-game-main">
-
-                    <form onSubmit={handleSubmit} className="add-game-form">
-
-                        <div className="gamename-input-div">
-                            <label htmlFor="name">Name: </label>
-                            <input id="name" type="text" onChange={handleChange}/>
-                        </div>
-                        <div className="image-url-input-div">
-                            <label htmlFor="imageurl">Image URL:</label>
-                            <input id="imageurl" type="text" onChange={handleChange}/>
-                        </div>
-                        <div className="favourite-input-div">
-                            <label htmlFor="favourite">Favourite?</label>
-                            <input id="favourite" type="checkbox" onChange={handleCheckbox}/>
-                        </div>
-
-                        <div className='buttons-div'>
-                            <button type="submit">Add</button>
-                            <a href={route('dashboard')}>
-                                <button type='button'>
-                                    Cancel
-                                </button>
-                            </a>
-                        </div>
-                    </form>
-
-                </div>
-
-            </AppLayout>
-        </>
+            <div className="add-game-main">
+                <form onSubmit={handleSubmit} className="add-game-form">
+                    <div className="gamename-input-div">
+                        <label htmlFor="name">Name: </label>
+                        <input id="name" type="text" onChange={handleChange}/>
+                    </div>
+                    <div className="image-url-input-div">
+                        <label htmlFor="imageurl">Image URL:</label>
+                        <input id="imageurl" type="text" onChange={handleChange}/>
+                    </div>
+                    <div className="favourite-input-div">
+                        <label htmlFor="favourite">Favourite?</label>
+                        <input id="favourite" type="checkbox" onChange={handleCheckbox}/>
+                    </div>
+                    <div className='buttons-div'>
+                        <button type="submit">Add</button>
+                        <a href={route('dashboard')}>
+                            <button type='button'>
+                                Cancel
+                            </button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </AppLayout>
     )
 }
 

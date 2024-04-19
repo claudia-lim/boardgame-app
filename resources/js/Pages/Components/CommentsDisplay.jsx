@@ -12,7 +12,7 @@ function CommentsDisplay({ user, boardgame, commentType }) {
     {
         axios.get(routeURL)
         .then(function (res) {
-            console.log('response data', res.data);
+            // console.log('response data', res.data);
             setComments(res.data);
             setLoading(false);
         })
@@ -50,7 +50,7 @@ function CommentsDisplay({ user, boardgame, commentType }) {
                 <div key={comment.id} className={`individual-comment ${comment.public ? 'public' : 'private'}`}>
                     <h4>{comment.name}</h4>
                     <p>{comment.comment}</p>
-                    <p>Created at: {createdAt}</p>
+                    <p>Posted at: {createdAt}</p>
                     {createdAt < editedAt ? <p>Edited at: {editedAt}</p> : ''}
                     {user.id === comment['user_id'] ? <a href={route('comments.edit', comment.id)}>
                                 <button className='comment-button'>Edit Comment</button>

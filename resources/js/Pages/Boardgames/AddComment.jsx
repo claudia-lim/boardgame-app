@@ -35,15 +35,17 @@ function AddComment({user, boardgame}) {
 
     return (
         <AppLayout header={`Add A Comment to ${boardgame.name}`} user={user}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='comment-form'>
                 <label htmlFor='comment'>Comment: </label>
-                <input onChange={handleChange} id='comment' type='text'></input>
-                <label htmlFor='public'>Make Post Private?</label>
-                <input onChange={handleCheckbox} id='public' type='checkbox'></input>
+                <textarea onChange={handleChange} id='comment' type='text' className='comment-input'></textarea>
+                <div>
+                    <label htmlFor='public'>Make Post Private?</label>
+                    <input onChange={handleCheckbox} id='public' type='checkbox' className='comment-public-checkbox'></input>
+                </div>
                 <div className='buttons-div'>
-                    <button>Add Comment</button>
-                    <a href={route('dashboard')}>
-                        <button type='button'>
+                    <button className='comment-button'>Add Comment</button>
+                    <a href={route('boardgames.show', boardgame.id)}>
+                        <button className='comment-button' type='button'>
                             Cancel
                         </button>
                     </a>

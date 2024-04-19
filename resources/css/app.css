@@ -36,7 +36,6 @@ header {
 }
 
 main {
-    /*border: solid 3px var(--header-bg-color);*/
     padding: 1rem;
 }
 
@@ -62,14 +61,14 @@ button:hover{
 
 .spinner {
     font-size: 5rem;
-
+    color: var(--header-bg-color);
 }
 
 a {
     text-decoration: none;
 }
 
-input {
+input, textarea {
     font-family: "Lora", serif;
 }
 
@@ -193,6 +192,23 @@ input[type='text'] {
     gap: 1rem;
 }
 
+/*Edit/Add Comment Form*/
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    width: 75vw;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.comment-public-checkbox {
+    align-self: flex-start;
+}
+
+.comment-input {
+    height: 20vh;
+    width: 50%;
+}
 
 /*show individual game*/
 
@@ -236,7 +252,6 @@ input[type='text'] {
 }
 
 .individual-comment {
-/*    !*border: 1px solid var(--header-text-color);*!*/
     padding: 1rem;
     width: 100%;
     display: flex;

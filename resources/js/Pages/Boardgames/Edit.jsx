@@ -30,12 +30,9 @@ function Edit({user, boardgame, gameUserInfo}) {
     }
     function handleSubmit(e) {
         e.preventDefault()
-        router.patch(route('comments.update', boardgame.id), data)
+        router.patch(route('boardgames.update', boardgame.id), data)
     }
 
-    function checkdata(e) {
-        console.log('data', data)
-    }
     return (
         <>
             <AppLayout header={`Edit: ${boardgame.name}`} user={user}>
