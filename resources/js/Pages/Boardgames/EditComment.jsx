@@ -1,10 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AppLayout from "@/Pages/Layouts/AppLayout.jsx";
-import {router} from "@inertiajs/react";
+import {router, usePage} from "@inertiajs/react";
 
 function EditComment (currentComment, user) {
-    console.log('currentcomment', currentComment);
+    const updateCommentButton = document.querySelector('.update-comment-button');
+    const { errors } = usePage().props;
 
+    useEffect(() => {
+        if (updateCommentButton) {
+            updateCommentButton.removeAttribute('disabled');
+            updateCommentButton.classList.remove('disabled-button');
+        }
+    }, [errors]);
 
     const [updatedComment, setUpdatedComment] = useState({
         comment: currentComment.currentComment.comment,
@@ -32,7 +39,9 @@ function EditComment (currentComment, user) {
     function handleSubmit(e) {
         e.preventDefault()
         // console.log(updatedComment);
-        router.patch(route('comments.update', currentComment.currentComment.id), updatedComment)
+        router.patch(route('comments.update', currentComment.currentComment.id), updatedComment);
+        updateCommentButton.setAttribute('disabled', '');
+        updateCommentButton.classList.add('disabled-button');
     }
 
 
@@ -45,8 +54,9 @@ function EditComment (currentComment, user) {
                     <label htmlFor='public'>Make Post Private?</label>
                     <input onChange={handleCheckbox} id='public' type='checkbox' checked={!updatedComment.public} className='comment-public-checkbox'></input>
                 </div>
+                <p>{errors.comment}</p>
                 <div className='buttons-div'>
-                    <button className='comment-button'>Update Comment</button>
+                    <button className='comment-button update-comment-button'>Update Comment</button>
                     <a href={route('boardgames.show', currentComment.currentComment.boardgame_id)}>
                         <button type='button' className='comment-button'>
                             Cancel

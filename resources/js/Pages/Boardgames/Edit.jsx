@@ -1,16 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AppLayout from '../Layouts/AppLayout.jsx'
-import {router} from "@inertiajs/react";
+import {router, usePage} from "@inertiajs/react";
 import DeleteGameButton from "../Components/DeleteGameButton.jsx";
 function Edit({user, boardgame, gameUserInfo}) {
 
     const startingName = gameUserInfo['custom_name'] ? gameUserInfo['custom_name'] : boardgame.name;
-
+    const { errors } = usePage().props;
     const [data, setData] = useState({
         name: startingName,
         imageUrl: gameUserInfo.imageUrl,
         favourite: gameUserInfo.favourite
     })
+    const submitButton = document.querySelector('.submit-button');
+
+    useEffect(() => {
+        if (submitButton) {
+            submitButton.removeAttribute('disabled');
+            submitButton.classList.remove('disabled-button');
+        }
+    }, [errors]);
     function handleChange(e) {
         const key = e.target.id;
         const value = e.target.value
@@ -31,6 +39,8 @@ function Edit({user, boardgame, gameUserInfo}) {
     function handleSubmit(e) {
         e.preventDefault()
         router.patch(route('boardgames.update', boardgame.id), data)
+        submitButton.setAttribute('disabled', '');
+        submitButton.classList.add('disabled-button');
     }
 
     return (
@@ -48,6 +58,7 @@ function Edit({user, boardgame, gameUserInfo}) {
                                type="text"
                                value={data.name}/>
                     </div>
+                    <p>{errors.name}</p>
                     <div className="image-url-input-div">
                         <label htmlFor="imageUrl">Image URL:</label>
                         <input onChange={handleChange}
@@ -57,6 +68,7 @@ function Edit({user, boardgame, gameUserInfo}) {
                                value={data.imageUrl}
                                placeholder="If left blank, default image will be used"/>
                     </div>
+                    <p>{errors.imageurl}</p>
                     <div className="favourite-input-div">
                         <label htmlFor="favourite">Favourite?</label>
                         <input id="favourite"
@@ -66,7 +78,7 @@ function Edit({user, boardgame, gameUserInfo}) {
                                type="checkbox"/>
                     </div>
                     <div className='buttons-div'>
-                        <button type="submit">Update</button>
+                        <button type="submit" className='submit-button'>Update</button>
                         <a href={route('boardgames.show', boardgame.id)}>
                             <button type='button'>
                             Cancel

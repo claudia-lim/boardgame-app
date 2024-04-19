@@ -43,7 +43,7 @@ main {
     text-transform: capitalize;
 }
 
-button{
+button {
     border: 0;
     padding: 0.25rem;
     font-family: "Bebas Neue", sans-serif;
@@ -209,6 +209,13 @@ input[type='text'] {
     height: 20vh;
     width: 50%;
 }
+
+.disabled-button {
+    text-decoration-line: line-through;
+    pointer-events: none;
+}
+
+
 
 /*show individual game*/
 

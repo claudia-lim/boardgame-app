@@ -26,7 +26,7 @@ class CommentController extends Controller
         $currentUser = Auth::user();
         $request['comment'] = trim($request['comment']);
         $data = $request->validate([
-            'comment' => ['string', 'required'],
+            'comment' => ['string', 'required', 'required'],
             'public' => ['required', 'boolean']
         ]);
         $data['boardgame_id'] = $id;
@@ -68,7 +68,7 @@ class CommentController extends Controller
     public function updateComment(Request $request, string $id)
     {
         $data = $request->validate([
-            'comment' => ['string', 'required'],
+            'comment' => ['required', 'string'],
             'public' => ['required', 'boolean']
         ]);
         $currentComment = Comment::find($id);

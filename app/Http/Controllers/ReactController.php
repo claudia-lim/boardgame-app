@@ -93,7 +93,7 @@ class ReactController extends Controller
         ]);
 //        $game->update(array_filter($data));
         $name = $request->validate([
-            'name' => ['string']
+            'name' => ['required', 'string']
         ]);
 //dd($imageUrl);
         $currentUser = Auth::user();
