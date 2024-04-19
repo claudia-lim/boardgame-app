@@ -21,10 +21,28 @@ class ReactController extends Controller
         return Inertia::render('Test', ['user'=>$user]);
     }
 
+    public function dashboard() {
+        $user = Auth::user();
+        $latestGame = $user->boardgames()->orderBy('boardgame_user.created_at', 'desc')->limit(1)->get();
+        $latestComment = Comment::where('comments.user_id', $user->id)
+            ->join('boardgames', 'comments.boardgame_id', '=', 'boardgames.id')
+            ->join('boardgame_user', 'comments.boardgame_id', '=', 'boardgame_user.boardgame_id')
+            ->orderByDesc('created_at')
+            ->select('comments.*', 'boardgame_user.custom_name', 'boardgames.name')
+            ->limit(1)->get();
+        return Inertia::render('Dashboard', [
+            'latestGame' => $latestGame,
+            'latestComment' => $latestComment
+        ]);
+    }
+
     public function index() {
         $user = Auth::user();
-        $boardgames = $user->boardgames()->get();
-        return Inertia::render('Boardgames/Index', ['boardgames'=>$boardgames, 'user'=>$user]);
+        $boardgames = $user->boardgames()->orderby('boardgame_user.created_at', 'desc')->get();
+        return Inertia::render('Boardgames/Index', [
+            'boardgames'=>$boardgames,
+            'user'=>$user
+        ]);
     }
 
     public function create()
