@@ -11,11 +11,11 @@ function FavouriteButton({favourite, boardgame}) {
     const handleFave = () => {
         axios.patch(route('boardgames.updatefave', boardgame.id), {favourite: favouriteDisplay} )
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 setAnimate('');
             })
             .catch(err => {
-                console.log(err);
+                console.error(err);
                 setErrorMessage('An error has occurred');
             })
     }

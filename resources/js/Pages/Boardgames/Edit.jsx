@@ -58,7 +58,7 @@ function Edit({user, boardgame, gameUserInfo}) {
                                type="text"
                                value={data.name}/>
                     </div>
-                    <p>{errors.name}</p>
+                    {errors.name ? <p>{errors.name}</p> : ''}
                     <div className="image-url-input-div">
                         <label htmlFor="imageUrl">Image URL:</label>
                         <input onChange={handleChange}
@@ -68,7 +68,7 @@ function Edit({user, boardgame, gameUserInfo}) {
                                value={data.imageUrl}
                                placeholder="If left blank, default image will be used"/>
                     </div>
-                    <p>{errors.imageurl}</p>
+                    {errors.imageurl ? <p>{errors.imageurl}</p> : '' }
                     <div className="favourite-input-div">
                         <label htmlFor="favourite">Favourite?</label>
                         <input id="favourite"
