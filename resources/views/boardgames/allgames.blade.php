@@ -5,6 +5,11 @@
             <div>
 
             {{ $game['id'] }} : {{ $game['name'] }}
+                <form method="POST" action="{{route('allgames.delete', $game['id'])}}">
+                    @csrf
+                    @method('delete')
+                    <button type="submit">Delete</button>
+                </form>
             </div>
 
         @endforeach
@@ -17,4 +22,5 @@
         </div>
     @endforeach
 </x-gameapplayout>
+
 

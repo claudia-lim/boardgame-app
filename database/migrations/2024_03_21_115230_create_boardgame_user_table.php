@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('boardgame_id')->constrained('boardgames')->cascadeOnDelete();
             $table->timestamps();
-            $table->boolean('favourite')->default(0);
+            $table->boolean('favourite')->default(false);
             $table->string('custom_name')->default("");
             $table->string('imageUrl')->nullable();
         });

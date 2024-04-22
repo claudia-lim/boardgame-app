@@ -9,19 +9,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Inertia\Inertia;
 
 class BoardgameController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() :View
+    public function index()
     {
         $user = Auth::user();
 //        dd(Boardgame::query()->get());
         $boardgames = $user->boardgames()->get();
 //        dd($boardgames);
-
         return view('boardgames.index', ['boardgames' => $boardgames]);
     }
 
@@ -158,7 +158,9 @@ class BoardgameController extends Controller
         $currentFaveStatus = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot->favourite;
         $currentUser->boardgames()->updateExistingPivot($id,['favourite' => $currentFaveStatus ? 0 : 1] );
 //        return to_route('boardgames.index');
-        return back();
+        return '';
     }
+
+
 
 }

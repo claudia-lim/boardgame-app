@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('comment');
             $table->foreignId('boardgame_id')->constrained('boardgames')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->boolean('public')->default(1);
+            $table->boolean('public')->default(true);
         });
     }
 

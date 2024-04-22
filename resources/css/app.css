@@ -12,6 +12,9 @@
 
     --button-color-1: #685d18;
     --button-color-2: #eeed97;
+    --button-color-3: #d3874e;
+    --button-color-4: #ffffff;
+    --button-color-5: #dea982;
 }
 
 header {
@@ -33,11 +36,14 @@ header {
 }
 
 main {
-    /*border: solid 3px var(--header-bg-color);*/
     padding: 1rem;
 }
 
-button, .cancel-button {
+.game-name {
+    text-transform: capitalize;
+}
+
+button {
     border: 0;
     padding: 0.25rem;
     font-family: "Bebas Neue", sans-serif;
@@ -47,17 +53,22 @@ button, .cancel-button {
     box-shadow: 3px 3px 3px rgba(56, 53, 36, 0.46);
 }
 
-button:hover, .cancel-button:hover {
+button:hover{
     color: var(--button-color-1);
     background-color: var(--button-color-2);
     cursor: pointer;
+}
+
+.spinner {
+    font-size: 5rem;
+    color: var(--header-bg-color);
 }
 
 a {
     text-decoration: none;
 }
 
-input {
+input, textarea {
     font-family: "Lora", serif;
 }
 
@@ -67,6 +78,11 @@ form :focus-visible {
 
 input[type='checkbox'] {
     accent-color: var(--header-bg-color);
+}
+
+.welcome-nav {
+    display: flex;
+    gap: 1rem;
 }
 
 /*Boardgame.Index view specific*/
@@ -103,37 +119,19 @@ input[type='checkbox'] {
     justify-content: space-evenly;
 }
 
-.fa-solid {
+.solid {
     color: var(--header-bg-color);
-    text-shadow: #d3874e 3px 3px 2px;
 }
 
-.fa-regular {
-    color: var(--header-text-color);
-    text-shadow: rgba(128, 128, 110, 0.14) 3px 3px;
+.regular {
+    color: var(--button-color-5);
+}
+.favourite-icon {
+    font-size: 3rem;
 }
 
-.fa-star {
-    font-size: 2rem;
-}
-
-.fave-button {
-    background-color: transparent;
-    box-shadow: none;
-}
-
-.fave-button:hover {
-    background-color:transparent;
-}
-
-.fa-star:hover {
-    font-size: 2.5rem;
-}
-
-.fave-icon {
-    width: 3rem;
-    height: 3rem;
-    padding: 1rem;
+.favourite-icon:hover {
+    color: var(--layout-accent-color);
 }
 
 .index-game-section-images {
@@ -165,7 +163,6 @@ input[type='checkbox'] {
 
 /*Boardgame.add new game/edit game*/
 
-
 .add-game-form, .edit-game-form {
     display: flex;
     flex-direction: column;
@@ -190,15 +187,35 @@ input[type='text'] {
     width: 100%;
 }
 
-.comments-input-div {
+.buttons-div {
     display: flex;
-    flex-direction: column;
-    width: 100%;
+    gap: 1rem;
 }
 
-#comments {
-    min-height: 20vh;
+/*Edit/Add Comment Form*/
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    width: 75vw;
+    margin: 0 auto;
+    gap: 1rem;
 }
+
+.comment-public-checkbox {
+    align-self: flex-start;
+}
+
+.comment-input {
+    height: 20vh;
+    width: 50%;
+}
+
+.disabled-button {
+    text-decoration-line: line-through;
+    pointer-events: none;
+}
+
+
 
 /*show individual game*/
 
@@ -211,22 +228,60 @@ input[type='text'] {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    gap: 0.35rem;
+}
+
+
+#comments-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 0.25rem;
+    border: solid 1px white;
+    padding: 1.5rem;
+    margin: 0.5rem;
+    width: 50%;
 }
 
-
-section .comments {
+.comment-button {
+    color: var(--button-color-3);
+    background-color: var(--button-color-4);
 }
 
-.all-comments h4 {
-    padding: 0;
-    margin: 0;
-    text-decoration: underline;
+.comment-button:hover {
+    color: var(--button-color-4);
+    background-color: var(--button-color-3);
 }
 
-.comment {
-    padding: 0 0.5rem 0.5rem 0.5rem;
-    margin-top: 0.5rem;
+.comments-subheading {
+    text-transform: capitalize;
+}
+
+.individual-comment {
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+/*    gap: 0.5rem;*/
+}
+
+.pagination-nav {
+    display: flex;
+}
+
+.pagination-arrows {
+    background: none;
+    color: var(--button-color-3);
+    box-shadow: none;
+}
+
+.pagination-arrows:hover {
+    background: none;
+    color: var(--button-color-3);
+    box-shadow: none;
 }
 
 .hidden {
@@ -234,11 +289,11 @@ section .comments {
 }
 
 .public {
-    border: 2px solid green;
+    border: 1px solid #75d975;
 }
 
 .private {
-    border: 2px solid red;
+    border: 1px solid #ea6666;
 }
 
 
