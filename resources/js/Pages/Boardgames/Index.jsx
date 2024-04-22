@@ -11,7 +11,7 @@ function index ({boardgames, user}) {
         return (
             <section className="index-game-section" key={boardgame.id}>
                 <h2 className='game-name'>{boardgame.pivot.custom_name ? `${boardgame.pivot.custom_name}*` : boardgame.name}</h2>
-                <h6 className='game-name'>{boardgame.name}</h6>
+                {boardgame.pivot.custom_name ? <h6 className='game-name'>AKA {boardgame.name}</h6> : ''}
                 <div className="index-game-section-images">
                     <img className="index-game-image" alt="boardgame image"
                          src={boardgame.pivot.imageUrl ? boardgame.pivot.imageUrl : boardgame.imageurl}/>
