@@ -10,6 +10,7 @@ function Create({user}) {
         favourite: false
     })
     const { errors } = usePage().props;
+
     const submitButton = document.querySelector('.submit-button');
 
     // const { data, setData, post, processing, errors } = useForm({
@@ -57,12 +58,13 @@ function Create({user}) {
                         <label htmlFor="name">Name: </label>
                         <input id="name" type="text" onChange={handleChange}/>
                     </div>
-                    <p>{errors.name}</p>
+                    {errors.name ? <p>{errors.name}</p> : ''}
+                    {errors.alreadyAdded ? <p>{errors.alreadyAdded}. If you can't see it, check if it is saved under a custom name</p> : ''}
                     <div className="image-url-input-div">
                         <label htmlFor="imageurl">Image URL:</label>
                         <input id="imageurl" type="text" onChange={handleChange}/>
                     </div>
-                        <p>{errors.imageurl}</p>
+                    {errors.imageurl ? <p>{errors.imageurl}</p> : ''}
                     <div className="favourite-input-div">
                         <label htmlFor="favourite">Favourite?</label>
                         <input id="favourite" type="checkbox" onChange={handleCheckbox}/>

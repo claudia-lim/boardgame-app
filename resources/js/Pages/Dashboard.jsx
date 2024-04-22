@@ -10,11 +10,13 @@ export default function Dashboard({ auth, latestGame, latestComment }) {
     // console.log('latest comment', latestComment);
 
     let latestGameDisplay = <h1>No games added yet</h1>
-    if (latestGame[0]) {
+    if (latestGame) {
         const dateGameAdded = new Date(latestGame[0].pivot.created_at).toLocaleString('en-GB', {
             timeStyle: "short",
             dateStyle: "medium"
         })
+
+        console.log(latestGame[0]);
 
         latestGameDisplay = (
             <div className="dashboard-latest-game">

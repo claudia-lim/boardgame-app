@@ -17,6 +17,7 @@
     @foreach($allBoardgameUsers as $boardgameUser)
         <div>
             <h2>User ID: {{ $boardgameUser['user_id'] }}</h2>
+            <p>Custom Name: {{$boardgameUser['custom_name']}}</p>
             <p>Game ID: {{ $boardgameUser['boardgame_id'] }}</p>
             <p>imageURL: {{ $boardgameUser['imageUrl'] }}</p>
         </div>

@@ -23,7 +23,7 @@ class ReactController extends Controller
 
     public function dashboard() {
         $user = Auth::user();
-        $latestGame = $user->boardgames()->orderBy('boardgame_user.created_at', 'desc')->limit(1)->get();
+        $latestGame = $user->boardgames()->orderBy('boardgame_user.created_at', 'desc')->get();
         $latestComment = Comment::where('comments.user_id', $user->id)
             ->join('boardgames', 'comments.boardgame_id', '=', 'boardgames.id')
             ->join('boardgame_user', 'comments.boardgame_id', '=', 'boardgame_user.boardgame_id')
@@ -61,9 +61,13 @@ class ReactController extends Controller
 
         if (DB::table('boardgames')->where('name','=', $request['name'])->exists()) {
             $game = DB::table('boardgames')->where('name','=', $request['name'])->get();
-            $user->boardgames()->attach($game[0]->id);
-            $user->boardgames()->updateExistingPivot($game[0]->id, $imageUrl);
-
+            Log::info($game);
+            if (DB::table('boardgame_user')->where('user_id', '=', $user->id)->where('boardgame_id', '=', $game[0]->id)->doesntExist()) {
+                $user->boardgames()->attach($game[0]->id);
+                $user->boardgames()->updateExistingPivot($game[0]->id, $imageUrl);
+            } else {
+                return back()->withErrors(['alreadyAdded'=>'Game is already in collection']);
+            }
         } else {
             $gameName = $request->validate([
                 'name' => ['required', 'string']

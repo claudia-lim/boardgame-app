@@ -5,7 +5,7 @@ import DeleteGameButton from "../Components/DeleteGameButton.jsx";
 import FavouriteButton from "@/Pages/Components/FavouriteButton.jsx";
 import CommentsDisplay from "@/Pages/Components/CommentsDisplay.jsx";
 function Show({user, boardgame, gameUserInfo}) {
-    // console.log(boardgame);
+
     const [currentCommentsDisplay, setCurrentCommentsDisplay] = useState('public');
     function toggleComments () {
         if (currentCommentsDisplay === 'public') {
@@ -16,8 +16,9 @@ function Show({user, boardgame, gameUserInfo}) {
     }
     return (
         <>
-            <AppLayout header={gameUserInfo['custom_name'] ? gameUserInfo['custom_name'] : boardgame.name} user={user}>
+            <AppLayout header={gameUserInfo['custom_name'] ? `${gameUserInfo['custom_name']} *` : boardgame.name} user={user}>
                 <main className='show-game'>
+                    {gameUserInfo['custom_name'] ? <p>* your custom name, official name is: <span className='game-name'>{boardgame.name}</span></p> : '' }
                     <div>
                         <img className="index-game-image" src={ gameUserInfo.imageUrl ? gameUserInfo.imageUrl : boardgame.imageurl}/>
                     </div>
