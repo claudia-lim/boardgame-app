@@ -10,7 +10,7 @@ function AddComment({user, boardgame}) {
     });
     const addCommentButton = document.querySelector('.add-comment-button');
     const { errors } = usePage().props;
-    console.log('errors', errors);
+    // console.log('errors', errors);
 
     useEffect(() => {
         if (addCommentButton) {

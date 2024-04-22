@@ -98,15 +98,16 @@ export default function Register() {
                 </div>
 
                 <div>
+
+                    <PrimaryButton disabled={processing}>
+                        Register
+                    </PrimaryButton>
+
                     <Link
                         as='button'
                         href={route('login')}>
                         Already registered?
                     </Link>
-
-                    <PrimaryButton disabled={processing}>
-                        Register
-                    </PrimaryButton>
                 </div>
             </form>
         </Guest>
