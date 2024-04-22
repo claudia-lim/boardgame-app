@@ -36,9 +36,9 @@ export default function Welcome({ auth }) {
                             <p>Current features:</p>
                             <ul>
                                 <li>Add a board game to your collection</li>
-                                <li>Tag if a game as a 'favourite' in your collection</li>
+                                <li>Tag if a game is a 'favourite' in your collection</li>
                                 <li>Edit or remove board games in your collection</li>
-                                <li>Add comments (public or private comments) to each board game. See your comments, or public comments with each board game</li>
+                                <li>Add comments (public or private comments) to each board game. Toggle between all public comments or your own comments with each board game</li>
                             </ul>
                         </main>
         </Guest>
