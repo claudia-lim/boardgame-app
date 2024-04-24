@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import AppLayout from '../Layouts/AppLayout.jsx'
 import {router, usePage} from "@inertiajs/react";
 import DeleteGameButton from "../Components/DeleteGameButton.jsx";
-function Edit({user, boardgame, gameUserInfo}) {
+function Edit({user, boardgame, gameUserInfo, auth}) {
 
     const startingName = gameUserInfo['custom_name'] ? gameUserInfo['custom_name'] : boardgame.name;
     const { errors } = usePage().props;
@@ -12,6 +12,8 @@ function Edit({user, boardgame, gameUserInfo}) {
         favourite: gameUserInfo.favourite
     })
     const submitButton = document.querySelector('.submit-button');
+    const imageUpload = document.querySelector('#imageUrl');
+    const imageUploadDiv = document.querySelector('.image-url-input-div');
 
     useEffect(() => {
         if (submitButton) {
@@ -19,6 +21,7 @@ function Edit({user, boardgame, gameUserInfo}) {
             submitButton.classList.remove('disabled-button');
         }
     }, [errors]);
+
     function handleChange(e) {
         const key = e.target.id;
         const value = e.target.value
@@ -36,17 +39,39 @@ function Edit({user, boardgame, gameUserInfo}) {
             [key]:value,
         }))
     }
+
+    function handleFileUpload (e) {
+    console.log(e.target.files);
+    const file = e.target.files[0];
+    setData(data=> ({
+        ...data,
+        imageUrl:file,
+    }))
+    }
+
+    function handleRemoveImage(e) {
+        if (e.target.checked) {
+            setData(data=> ({
+                ...data,
+                imageUrl: '',
+            }))
+            imageUpload.value = '';
+            imageUploadDiv.classList.add('hidden');
+        } else {
+            imageUploadDiv.classList.remove('hidden');
+        }
+    }
     function handleSubmit(e) {
         e.preventDefault()
-        router.patch(route('boardgames.update', boardgame.id), data)
+        router.post(route('boardgames.update', boardgame.id), data)
         submitButton.setAttribute('disabled', '');
         submitButton.classList.add('disabled-button');
     }
 
+
     return (
         <>
-            <AppLayout header={`Edit: ${boardgame.name}`} user={user}>
-                <div>Game info</div>
+            <AppLayout header={`Edit: ${startingName}`} user={user}>
                 <h2>{boardgame.name}</h2>
 
                 <form onSubmit={handleSubmit} className="edit-game-form">
@@ -58,17 +83,31 @@ function Edit({user, boardgame, gameUserInfo}) {
                                type="text"
                                value={data.name}/>
                     </div>
+
                     {errors.name ? <p>{errors.name}</p> : ''}
-                    <div className="image-url-input-div">
-                        <label htmlFor="imageUrl">Image URL:</label>
-                        <input onChange={handleChange}
-                               id="imageUrl"
-                               name="imageUrl"
-                               type="text"
-                               value={data.imageUrl}
-                               placeholder="If left blank, default image will be used"/>
+
+                    <div>
+
+                            {gameUserInfo.custom_name ? <p>Note this is your custom name, official name is: <span
+                                className='game-name'>{boardgame.name}</span></p> : ''}
+
                     </div>
-                    {errors.imageurl ? <p>{errors.imageurl}</p> : '' }
+
+                    <h4>Current image:</h4>
+                    <img className="index-game-image" alt='image for current board game'
+                         src={gameUserInfo.imageUrl ? `/storage/${gameUserInfo.imageUrl}` : `/storage/${auth.defaultImage}`}></img>
+
+                    <div>
+                        <label htmlFor='removeImage'>Remove Image (default image will be used instead)</label>
+                        <input type='checkbox' id='removeImage' name='removeImage' onChange={handleRemoveImage}></input>
+                    </div>
+
+                    <div className="image-url-input-div">
+                        <label htmlFor="imageUrl">Upload an image:</label>
+                        <input type="file" id="imageUrl" name="imageUrl" onChange={handleFileUpload}/>
+                    </div>
+
+                    {errors.imageUrl ? <p>{errors.imageUrl}</p> : ''}
                     <div className="favourite-input-div">
                         <label htmlFor="favourite">Favourite?</label>
                         <input id="favourite"
@@ -79,14 +118,14 @@ function Edit({user, boardgame, gameUserInfo}) {
                     </div>
                     <div className='buttons-div'>
                         <button type="submit" className='submit-button'>Update</button>
-                        <a href={route('boardgames.show', boardgame.id)}>
-                            <button type='button'>
-                            Cancel
-                            </button>
-                        </a>
                     </div>
-                <DeleteGameButton boardgame={boardgame}/>
                 </form>
+                <a href={route('boardgames.show', boardgame.id)}>
+                    <button type='button'>
+                        Cancel
+                    </button>
+                </a>
+                <DeleteGameButton boardgame={boardgame}/>
 
                 {/*<button onClick={checkdata}>Check</button>*/}
             </AppLayout>

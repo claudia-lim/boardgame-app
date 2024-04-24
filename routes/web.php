@@ -25,12 +25,13 @@ Route::get('/dashboard', [ReactController::class, 'dashboard'])->middleware(['au
 
 //react pages
 Route::get('/test', [ReactController::class, 'test'])->middleware(['auth', 'verified']);
+Route::post('/test/upload', [ReactController::class, 'testFileUpload'])->middleware(['auth', 'verified'])->name('test.upload');
 Route::get('/boardgames', [ReactController::class, 'index'])->middleware(['auth', 'verified'])->name('boardgames.index');
 Route::get('/boardgames/create', [ReactController::class, 'create'])->middleware(['auth', 'verified'])->name('boardgames.create');
 Route::post('/boardgames/store', [ReactController::class, 'store'])->middleware(['auth', 'verified'])->name('boardgames.store');
 Route::get('/boardgames/{id}', [ReactController::class, 'show'])->middleware(['auth', 'verified'])->name('boardgames.show');
 Route::get('/boardgames/{id}/edit', [ReactController::class, 'edit'])->middleware(['auth', 'verified'])->name('boardgames.edit');
-Route::patch('/boardgames/{id}/update', [ReactController::class, 'update'])->middleware(['auth', 'verified'])->name('boardgames.update');
+Route::post('/boardgames/{id}/update', [ReactController::class, 'update'])->middleware(['auth', 'verified'])->name('boardgames.update');
 Route::delete('/boardgames/{id}/destroy', [ReactController::class, 'destroy'])->middleware(['auth', 'verified'])->name('boardgames.destroy');
 Route::get('/favourites', [ReactController::class, 'favouriteGames'])->middleware(['auth', 'verified'])->name('boardgames.favourites');
 
