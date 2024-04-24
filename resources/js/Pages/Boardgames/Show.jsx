@@ -4,8 +4,7 @@ import {Link} from "@inertiajs/react";
 import DeleteGameButton from "../Components/DeleteGameButton.jsx";
 import FavouriteButton from "@/Pages/Components/FavouriteButton.jsx";
 import CommentsDisplay from "@/Pages/Components/CommentsDisplay.jsx";
-function Show({user, boardgame, gameUserInfo}) {
-
+function Show({user, boardgame, gameUserInfo, auth}) {
     const [currentCommentsDisplay, setCurrentCommentsDisplay] = useState('public');
     function toggleComments () {
         if (currentCommentsDisplay === 'public') {
@@ -20,7 +19,7 @@ function Show({user, boardgame, gameUserInfo}) {
                 <main className='show-game'>
                     {gameUserInfo['custom_name'] ? <p>* your custom name, official name is: <span className='game-name'>{boardgame.name}</span></p> : '' }
                     <div>
-                        <img className="index-game-image" src={ gameUserInfo.imageUrl ? gameUserInfo.imageUrl : boardgame.imageurl}/>
+                        <img className="index-game-image" src={ gameUserInfo.imageUrl ? `/storage/${gameUserInfo.imageUrl}` : `/storage/${auth.defaultImage}`}/>
                     </div>
                     <FavouriteButton favourite={gameUserInfo.favourite} boardgame={boardgame}/>
                     <Link as="button" href={route('boardgames.edit', boardgame.id)}>Edit Game</Link>

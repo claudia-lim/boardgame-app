@@ -50,8 +50,7 @@ function CommentsDisplay({ user, boardgame, commentType }) {
                 <div key={comment.id} className={`individual-comment ${comment.public ? 'public' : 'private'}`}>
                     <h4>{comment.name}</h4>
                     <p>{comment.comment}</p>
-                    <p>Posted at: {createdAt}</p>
-                    {createdAt < editedAt ? <p>Edited at: {editedAt}</p> : ''}
+                    {createdAt <= editedAt ? <p>Edited: {editedAt}</p> : <p>Posted: {createdAt}</p>}
                     {user.id === comment['user_id'] ? <a href={route('comments.edit', comment.id)}>
                                 <button className='comment-button'>Edit Comment</button>
                             </a> : ''}

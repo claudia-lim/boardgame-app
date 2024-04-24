@@ -4,7 +4,7 @@ import {Link} from "@inertiajs/react";
 import DeleteGameButton from "../Components/DeleteGameButton.jsx";
 import FavouriteButton from "@/Pages/Components/FavouriteButton.jsx";
 
-function index ({boardgames, user}) {
+function index ({auth, boardgames, user}) {
 
 
     const games = boardgames.map((boardgame) => {
@@ -14,7 +14,7 @@ function index ({boardgames, user}) {
                 <h6 className='game-name'>{boardgame.name}</h6>
                 <div className="index-game-section-images">
                     <img className="index-game-image" alt="boardgame image"
-                         src={boardgame.pivot.imageUrl ? boardgame.pivot.imageUrl : boardgame.imageurl}/>
+                         src={boardgame.pivot.imageUrl ? `/storage/${boardgame.pivot.imageUrl}` : `/storage/${auth.defaultImage}`}/>
                     <div className="fave-icon">
                         <FavouriteButton boardgame={boardgame} favourite={boardgame.pivot.favourite}/>
                     </div>
