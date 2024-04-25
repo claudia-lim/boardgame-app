@@ -78,10 +78,10 @@ class ReactController extends Controller
         //save uploaded image
         if ($request['imageurl']) {
             $imageFile = $request->file('imageurl');
-            log::info($imageFile);
-            $path = $imageFile->store('images', 'public');
+            $path = $imageFile->store('images', 's3');
+            $url = Storage::disk('s3')->url($path);
         } else {
-            $path = '';
+            $url = '';
         }
 
         //Check if game already exists in board game table
@@ -90,7 +90,7 @@ class ReactController extends Controller
             //Check that user doesn't already have link with this board game (ie already in collection), if not create link
             if (DB::table('boardgame_user')->where('user_id', '=', $user->id)->where('boardgame_id', '=', $game[0]->id)->doesntExist()) {
                 $user->boardgames()->attach($game[0]->id);
-                $user->boardgames()->updateExistingPivot($game[0]->id, ['imageUrl'=>$path]);
+                $user->boardgames()->updateExistingPivot($game[0]->id, ['imageUrl'=>$url]);
                 $user->boardgames()->updateExistingPivot($game->id, ['favourite' => $data['favourite']]);
             } else {
                 //Game is already in user's collection
@@ -101,7 +101,7 @@ class ReactController extends Controller
             $newGame = Boardgame::create(['name'=>$data['name']]);
             //Link user to this board game (ie add to user's collection), with uploaded image if any
             $user->boardgames()->attach($newGame->id);
-            $user->boardgames()->updateExistingPivot($newGame->id, ['imageUrl'=>$path]);
+            $user->boardgames()->updateExistingPivot($newGame->id, ['imageUrl'=>$url]);
             $user->boardgames()->updateExistingPivot($newGame->id, ['favourite' => $data['favourite']]);
 
         }
@@ -146,20 +146,28 @@ class ReactController extends Controller
         if (empty($request['imageUrl'])) {
             //Empty image url input means image is to be removed
             $currentUser->boardgames()->updateExistingPivot($id, ['imageUrl'=>'']);
-            //Delete previous image
+            //Delete previous image:
             $prevImage = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
-            $prevImageName = substr($prevImage->imageUrl, 7);
-            Storage::disk('public')->delete('images/' . $prevImageName);
+            $prevImageName = basename($prevImage->imageUrl);
+            log::info($prevImage);
+            log::info($prevImageName);
+            Storage::disk('s3')->delete('images/' . $prevImageName);
         } else if (!is_string($request['imageUrl'])) {
+            //Delete previous image
+//            $prevImage = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
+//            $prevImageName = substr($prevImage->imageUrl, 7);
+//            Storage::disk('public')->delete('images/' . $prevImageName);
+            $prevImage = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
+            $prevImageName = basename($prevImage->imageUrl);
+            log::info($prevImage);
+            log::info($prevImageName);
+            Storage::disk('s3')->delete('images/' . $prevImageName);
+
             //If image url input is not a string and not empty then it is a file to be uploaded
             $imageFile = $request->file('imageUrl');
-            $path = $imageFile->store('images', 'public');
-            $currentUser->boardgames()->updateExistingPivot($id, ['imageUrl'=>$path]);
-
-            //Delete previous image
-            $prevImage = $currentUser->boardgames()->where('boardgame_id', $id)->first()->pivot;
-            $prevImageName = substr($prevImage->imageUrl, 7);
-            Storage::disk('public')->delete('images/' . $prevImageName);
+            $path = $imageFile->store('images', 's3');
+            $url = Storage::disk('s3')->url($path);
+            $currentUser->boardgames()->updateExistingPivot($id, ['imageUrl'=>$url]);
         } else {
             log::info('No change to current image');
         }
@@ -187,7 +195,7 @@ class ReactController extends Controller
     public function favouriteGames()
     {
         $user = Auth::user();
-        $favouriteGames = $user->boardgames()->wherePivotIn('favourite', [1, 'on', 'true'])->get();
+        $favouriteGames = $user->boardgames()->wherePivotIn('favourite', [1, 'on', 'true'])->orderby('created_at', 'desc')->get();
         return Inertia::render('Boardgames/Favourites', ['user'=>$user, 'favouriteGames'=>$favouriteGames]);
     }
 
