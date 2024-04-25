@@ -19,7 +19,7 @@ function Show({user, boardgame, gameUserInfo, auth}) {
                 <main className='show-game'>
                     {gameUserInfo['custom_name'] ? <p>* your custom name, official name is: <span className='game-name'>{boardgame.name}</span></p> : '' }
                     <div>
-                        <img className="index-game-image" src={ gameUserInfo.imageUrl ? `/storage/${gameUserInfo.imageUrl}` : `/storage/${auth.defaultImage}`}/>
+                        <img className="index-game-image" src={ gameUserInfo.imageUrl ? gameUserInfo.imageUrl : `/storage/${auth.defaultImage}`}/>
                     </div>
                     <FavouriteButton favourite={gameUserInfo.favourite} boardgame={boardgame}/>
                     <Link as="button" href={route('boardgames.edit', boardgame.id)}>Edit Game</Link>

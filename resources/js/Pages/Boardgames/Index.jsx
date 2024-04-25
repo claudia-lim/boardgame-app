@@ -6,15 +6,17 @@ import FavouriteButton from "@/Pages/Components/FavouriteButton.jsx";
 
 function index ({auth, boardgames, user}) {
 
-
     const games = boardgames.map((boardgame) => {
+
         return (
             <section className="index-game-section" key={boardgame.id}>
-                <h2 className='game-name'>{boardgame.pivot.custom_name ? `${boardgame.pivot.custom_name}*` : boardgame.name}</h2>
-                <h6 className='game-name'>{boardgame.name}</h6>
+                <div className='game-name-section'>
+                    <h2 className='game-name'>{boardgame.pivot.custom_name ? `${boardgame.pivot.custom_name}*` : boardgame.name}</h2>
+                    {boardgame.pivot.custom_name ? <p className='game-name'>* AKA {boardgame.name}</p> : '' }
+                </div>
                 <div className="index-game-section-images">
                     <img className="index-game-image" alt="boardgame image"
-                         src={boardgame.pivot.imageUrl ? `/storage/${boardgame.pivot.imageUrl}` : `/storage/${auth.defaultImage}`}/>
+                         src={boardgame.pivot.imageUrl ? boardgame.pivot.imageUrl : `/storage/${auth.defaultImage}`}/>
                     <div className="fave-icon">
                         <FavouriteButton boardgame={boardgame} favourite={boardgame.pivot.favourite}/>
                     </div>
@@ -34,7 +36,6 @@ function index ({auth, boardgames, user}) {
             <main className="index-games-display">
                 {games}
             </main>
-                <p>* Your custom name for this game</p>
 
         </AppLayout>
     )

@@ -10,7 +10,7 @@ function Favourites({user, favouriteGames, auth}) {
                 <h2 className='game-name'>{boardgame.pivot.custom_name ? boardgame.pivot.custom_name : boardgame.name}</h2>
                 <div className="index-game-section-images">
                     <img className="index-game-image" alt="boardgame image"
-                         src={boardgame.pivot.imageUrl ? `/storage/${boardgame.pivot.imageUrl}` : `/storage/${auth.defaultImage}`}/>
+                         src={boardgame.pivot.imageUrl ? boardgame.pivot.imageUrl : `/storage/${auth.defaultImage}`}/>
                     <div className="fave-icon">
                         <FavouriteButton boardgame={boardgame} favourite={boardgame.pivot.favourite}/>
                     </div>

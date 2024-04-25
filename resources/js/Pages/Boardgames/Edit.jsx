@@ -13,7 +13,7 @@ function Edit({user, boardgame, gameUserInfo, auth}) {
     })
     const submitButton = document.querySelector('.submit-button');
     const imageUpload = document.querySelector('#imageUrl');
-    const imageUploadDiv = document.querySelector('.image-url-input-div');
+    const imageUploadDiv = document.querySelector('.upload-image-div');
 
     useEffect(() => {
         if (submitButton) {
@@ -72,8 +72,6 @@ function Edit({user, boardgame, gameUserInfo, auth}) {
     return (
         <>
             <AppLayout header={`Edit: ${startingName}`} user={user}>
-                <h2>{boardgame.name}</h2>
-
                 <form onSubmit={handleSubmit} className="edit-game-form">
 
                     <div className="gamename-input-div">
@@ -93,16 +91,18 @@ function Edit({user, boardgame, gameUserInfo, auth}) {
 
                     </div>
 
-                    <h4>Current image:</h4>
-                    <img className="index-game-image" alt='image for current board game'
-                         src={gameUserInfo.imageUrl ? `/storage/${gameUserInfo.imageUrl}` : `/storage/${auth.defaultImage}`}></img>
+                    <div className='edit-current-image-div'>
+                        <h4>Current image:</h4>
+                        <img className="edit-game-current-image" alt='image for current board game'
+                             src={gameUserInfo.imageUrl ? gameUserInfo.imageUrl : `/storage/${auth.defaultImage}`}></img>
+                    </div>
 
                     <div>
                         <label htmlFor='removeImage'>Remove Image (default image will be used instead)</label>
                         <input type='checkbox' id='removeImage' name='removeImage' onChange={handleRemoveImage}></input>
                     </div>
 
-                    <div className="image-url-input-div">
+                    <div className="upload-image-div">
                         <label htmlFor="imageUrl">Upload an image:</label>
                         <input type="file" id="imageUrl" name="imageUrl" onChange={handleFileUpload}/>
                     </div>
@@ -119,13 +119,13 @@ function Edit({user, boardgame, gameUserInfo, auth}) {
                     <div className='buttons-div'>
                         <button type="submit" className='submit-button'>Update</button>
                     </div>
-                </form>
                 <a href={route('boardgames.show', boardgame.id)}>
                     <button type='button'>
                         Cancel
                     </button>
                 </a>
                 <DeleteGameButton boardgame={boardgame}/>
+                </form>
 
                 {/*<button onClick={checkdata}>Check</button>*/}
             </AppLayout>

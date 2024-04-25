@@ -66,8 +66,11 @@ function Create({user}) {
                         <p>{errors.alreadyAdded}. If you can't see it, check if it is saved under a custom
                             name</p> : ''}
 
-                    <label htmlFor="imageurl">Select a file:</label>
-                    <input type="file" id="imageurl" name="imageurl" onChange={handleFileUpload}/>
+                    <div className='upload-image-div'>
+                        <label htmlFor="imageurl">Select a file:</label>
+                        <input type="file" id="imageurl" name="imageurl" onChange={handleFileUpload}/>
+                    </div>
+
 
                     {errors.imageurl ? <p>{errors.imageurl}</p> : ''}
                     <div className="favourite-input-div">
