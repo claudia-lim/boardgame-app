@@ -38,6 +38,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'defaultImage' => 'images/boardgameplaceholder1.png',
             ],
         ];
 

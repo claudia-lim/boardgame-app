@@ -45,7 +45,7 @@ function AddComment({user, boardgame}) {
     }
 
     return (
-        <AppLayout header={`Add A Comment to ${boardgame.name}`} user={user}>
+        <AppLayout header={`Add A Comment`} user={user}>
             <form onSubmit={handleSubmit} className='comment-form'>
                 <label htmlFor='comment'>Comment: </label>
                 <textarea onChange={handleChange}

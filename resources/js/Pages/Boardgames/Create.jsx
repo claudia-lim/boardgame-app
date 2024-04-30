@@ -13,12 +13,6 @@ function Create({user}) {
 
     const submitButton = document.querySelector('.submit-button');
 
-    // const { data, setData, post, processing, errors } = useForm({
-    //     input_gamename: '',
-    //     imageurl: '',
-    //     favourite: false,
-    // })
-
     useEffect(() => {
         if (submitButton) {
             submitButton.removeAttribute('disabled');
@@ -33,6 +27,15 @@ function Create({user}) {
             ...data,
             [key]: value,
         }))
+    }
+
+    function handleFileUpload (e) {
+        if (e.target.files) {
+            setData(data => ({
+                ...data,
+                'imageurl': e.target.files[0],
+            }))
+        }
     }
 
     function handleCheckbox(e) {
@@ -59,11 +62,16 @@ function Create({user}) {
                         <input id="name" type="text" onChange={handleChange}/>
                     </div>
                     {errors.name ? <p>{errors.name}</p> : ''}
-                    {errors.alreadyAdded ? <p>{errors.alreadyAdded}. If you can't see it, check if it is saved under a custom name</p> : ''}
-                    <div className="image-url-input-div">
-                        <label htmlFor="imageurl">Image URL:</label>
-                        <input id="imageurl" type="text" onChange={handleChange}/>
+                    {errors.alreadyAdded ?
+                        <p>{errors.alreadyAdded}. If you can't see it, check if it is saved under a custom
+                            name</p> : ''}
+
+                    <div className='upload-image-div'>
+                        <label htmlFor="imageurl">Select a file:</label>
+                        <input type="file" id="imageurl" name="imageurl" onChange={handleFileUpload}/>
                     </div>
+
+
                     {errors.imageurl ? <p>{errors.imageurl}</p> : ''}
                     <div className="favourite-input-div">
                         <label htmlFor="favourite">Favourite?</label>
@@ -83,4 +91,4 @@ function Create({user}) {
     )
 }
 
-    export default Create;
+export default Create;
