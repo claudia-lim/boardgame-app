@@ -47,7 +47,7 @@ function Dashboard({ auth, latestGame, latestComment }) {
             <div className='dashboard-latest-comment'>
                 <h1>Your Most Recent Comment:</h1>
                 <h2 className='game-name'>{latestComment[0].custom_name ? latestComment[0].custom_name : latestComment[0].name}</h2>
-                <p>{latestComment[0].comment}</p>
+                <h4 className='dashboard-comment'>{latestComment[0].comment}</h4>
                 <p>Posted at: {createdAt}</p>
                 {createdAt < editedAt ? <p>Edited at: {editedAt}</p> : ''}
                 <p>{latestComment[0].public ? 'Public' : 'Private'} post</p>
